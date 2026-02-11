@@ -1,263 +1,482 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_overlay/smart_overlay.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const SmartOverlayGuide());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SmartOverlayGuide extends StatelessWidget {
+  const SmartOverlayGuide({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Smart Overlay Demo',
-      theme: ThemeData(useMaterial3: true, primarySwatch: Colors.blue),
-      home: const DemoScreen(),
+      title: 'Smart Overlay Professional Guide',
+      theme: ThemeData(
+        useMaterial3: true,
+        brightness: Brightness.dark,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF6366F1),
+          brightness: Brightness.dark,
+          surface: const Color(0xFF1E293B),
+        ),
+        textTheme: GoogleFonts.nunitoTextTheme(ThemeData.dark().textTheme),
+      ),
+      home: const GuideScreen(),
     );
   }
 }
 
-class DemoScreen extends StatefulWidget {
-  const DemoScreen({super.key});
-
-  @override
-  State<DemoScreen> createState() => _DemoScreenState();
-}
-
-class _DemoScreenState extends State<DemoScreen> {
-  bool _isLoggingIn = false;
-  bool _isSyncing = false;
-
-  void _handleSync() async {
-    setState(() => _isSyncing = true);
-    await Future.delayed(const Duration(seconds: 3));
-    if (mounted) {
-      setState(() => _isSyncing = false);
-    }
-  }
-
-  void _handleLogin() async {
-    setState(() => _isLoggingIn = true);
-
-    await Future.delayed(const Duration(seconds: 3));
-    if (mounted) {
-      setState(() => _isLoggingIn = false);
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Logged in successfully!')));
-    }
-  }
+class GuideScreen extends StatelessWidget {
+  const GuideScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 18, 27, 49),
       appBar: AppBar(
-        title: const Text('Smart Overlay Demo'),
+        title: Text(
+          'Smart Overlay',
+          style: GoogleFonts.nunito(
+            fontWeight: FontWeight.w800,
+            fontSize: 22,
+            letterSpacing: -0.5,
+          ),
+        ),
+        backgroundColor: const Color(0xFF1E293B),
         centerTitle: true,
+        elevation: 0,
       ),
-      body: Center(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _DemoButton(
-                label: 'Show Full Screen Loader',
-                color: Colors.blue,
-                onPressed: () async {
-                  context.showLoader(message: 'Preparing your workspace...');
-                  await Future.delayed(const Duration(seconds: 3));
-                  if (context.mounted) {
-                    context.hideOverlay();
-                  }
-                },
+              _buildSectionHeader(
+                'Smart Overlay Logic',
+                'Managed full-screen load states',
               ),
+              const SizedBox(height: 12),
+              _buildOverlayGrid(context),
+
+              const SizedBox(height: 22),
+              _buildSectionHeader(
+                'Widget Injection',
+                'Inject indicators into any UI component',
+              ),
+              const SizedBox(height: 12),
+              const _IndicatorDemoCard(
+                title: 'Fading Dots Indicator',
+                description: 'Opacity-modulated circular pulse',
+                indicator: FadingDotsProgressIndicator(
+                  size: 40,
+                  dotCount: 12,
+                  gradient: SweepGradient(
+                    colors: [
+                      Color(0xFF6366F1),
+                      Color(0xFF2DD4BF),
+                      Color(0xFF6366F1),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Scalloped Indicator',
+                description: 'Synchronized wave-path animation',
+                indicator: ScallopedProgressIndicator(
+                  size: 40,
+                  strokeWidth: 3,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFFF43F5E), Color(0xFFFB923C)],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 32),
+              _buildSectionHeader(
+                'Parameter Customization',
+                'Granular control over physics and aesthetics',
+              ),
+              const SizedBox(height: 16),
+              _buildDotsCustomizationRow(),
+              const SizedBox(height: 16),
+              _buildScallopedCustomizationRow(),
               const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 60,
-                  child: ElevatedButton(
-                    onPressed: _isLoggingIn ? null : _handleLogin,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurple,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    child: _isLoggingIn
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              ScallopedProgressIndicator(
-                                size: 30,
-                                strokeWidth: 2,
-                                color: Colors.white,
-                                waveCount: 8,
-                              ),
-                              SizedBox(width: 12),
-                              Text('Logging in...'),
-                            ],
-                          )
-                        : const Text(
-                            'Login with Scalloped Progress',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 30),
-              GestureDetector(
-                onTap: _isSyncing ? null : _handleSync,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 30),
-                  padding: const EdgeInsets.all(30),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: _isSyncing
-                            ? Colors.purple.withValues(alpha: 0.1)
-                            : Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 20,
-                        offset: const Offset(0, 10),
-                      ),
-                    ],
-                    border: Border.all(
-                      color: _isSyncing
-                          ? Colors.purple.withValues(alpha: 0.2)
-                          : Colors.grey.withValues(alpha: 0.1),
-                      width: 1,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Premium Gradient Style',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      SizedBox(
-                        height: 40,
-                        child: Center(
-                          child: Text(
-                            _isSyncing
-                                ? 'Synchronizing data...'
-                                : 'Tap to witness the magic',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: _isSyncing
-                                  ? Colors.purple
-                                  : Colors.grey.shade600,
-                              fontWeight: _isSyncing
-                                  ? FontWeight.w500
-                                  : FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      SizedBox(
-                        height: 60,
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 400),
-                          child: _isSyncing
-                              ? const ScallopedProgressIndicator(
-                                  key: ValueKey('loader'),
-                                  size: 60,
-                                  strokeWidth: 3,
-                                  waveCount: 12,
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Colors.purple,
-                                      Colors.blueAccent,
-                                      Colors.greenAccent,
-                                      Colors.orangeAccent,
-                                      Colors.redAccent,
-                                    ],
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                  ),
-                                )
-                              : Center(
-                                  key: const ValueKey('icon'),
-                                  child: Text(
-                                    'Start',
-                                    style: TextStyle(
-                                      color: Colors.purple,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
-                                  ),
-                                ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 40),
-              const Text(
-                'The indicator works anywhere!',
-                style: TextStyle(color: Colors.grey),
-              ),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _buildSectionHeader(String title, String subtitle) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: GoogleFonts.nunito(
+            fontSize: 19,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+          ),
+        ),
+        Text(
+          subtitle,
+          style: GoogleFonts.nunito(
+            fontSize: 13,
+            fontWeight: FontWeight.w600,
+            color: const Color.fromARGB(255, 163, 179, 201),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOverlayGrid(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: _ActionCard(
+            label: 'Scalloped Overlay',
+            description: 'Manual hide',
+            icon: Icons.lock_outline,
+            color: const Color(0xFF6366F1),
+            onTap: () async {
+              SmartOverlay.show(
+                context: context,
+                message: 'Awaiting completion...',
+              );
+              await Future.delayed(const Duration(seconds: 3));
+              SmartOverlay.hide();
+            },
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _ActionCard(
+            label: 'Dotted   Overlay',
+            description: 'Auto-dismiss',
+            icon: Icons.timer_outlined,
+            color: const Color(0xFF2DD4BF),
+            onTap: () {
+              SmartOverlay.show(
+                context: context,
+                message: 'Processing data...',
+                autoDismissDuration: const Duration(seconds: 2),
+                indicator: const FadingDotsProgressIndicator(
+                  color: Color(0xFF2DD4BF),
+                  size: 60,
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _ActionCard(
+            label: 'Glass       Overlay',
+            description: 'Blur background',
+            icon: Icons.blur_on_rounded,
+            color: const Color(0xFFA855F7),
+            onTap: () async {
+              SmartOverlay.show(
+                context: context,
+                messageWidget: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'AI Processing...',
+                      style: GoogleFonts.nunito(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Opacity(
+                      opacity: 0.7,
+                      child: Text(
+                        'Analyzing data patterns',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
+                  ],
+                ),
+                useBlur: true,
+                backgroundColor: Colors.black.withAlpha(150),
+                indicator: const FadingDotsProgressIndicator(
+                  color: Colors.white,
+                  size: 80,
+                  dotSize: 4,
+                  radius: 20,
+                ),
+              );
+              await Future.delayed(const Duration(seconds: 3));
+              SmartOverlay.hide();
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDotsCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Wide Hero',
+          indicator: const FadingDotsProgressIndicator(
+            size: 65,
+            dotCount: 14,
+            radius: 28,
+            gradient: LinearGradient(
+              colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Compact',
+          indicator: const FadingDotsProgressIndicator(
+            size: 65,
+            dotCount: 8,
+            radius: 16,
+            dotSize: 6,
+            gradient: LinearGradient(
+              colors: [Color(0xFFF43F5E), Color(0xFFFB923C)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Density',
+          indicator: const FadingDotsProgressIndicator(
+            size: 65,
+            dotCount: 20,
+            dotSize: 2,
+            radius: 25,
+            gradient: SweepGradient(
+              colors: [Color(0xFF818CF8), Color(0xFFC084FC), Color(0xFF818CF8)],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildScallopedCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Standard',
+          indicator: const ScallopedProgressIndicator(
+            size: 65,
+            strokeWidth: 2,
+            waveCount: 9,
+            gradient: LinearGradient(
+              colors: [Color(0xFF0EA5E9), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Complexity',
+          indicator: const ScallopedProgressIndicator(
+            size: 65,
+            strokeWidth: 3,
+            waveCount: 20,
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF6366F1),
+                Color.fromARGB(255, 183, 124, 238),
+                Colors.white,
+              ],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Bold Stroke',
+          indicator: const ScallopedProgressIndicator(
+            size: 65,
+            strokeWidth: 6,
+            waveCount: 6,
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFFF43F5E),
+                Color(0xFFFB923C),
+                Color.fromARGB(255, 218, 233, 89),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
-class _DemoButton extends StatelessWidget {
-  final String label;
-  final Color color;
-  final VoidCallback onPressed;
+class _CustomizationHost extends StatelessWidget {
+  final List<Widget> children;
+  const _CustomizationHost({required this.children});
 
-  const _DemoButton({
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E293B),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: children,
+      ),
+    );
+  }
+}
+
+class _ActionCard extends StatelessWidget {
+  final String label;
+  final String description;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _ActionCard({
     required this.label,
+    required this.description,
+    required this.icon,
     required this.color,
-    required this.onPressed,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
-      child: SizedBox(
-        width: double.infinity,
-        height: 60,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: color,
-            foregroundColor: Colors.white,
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        height: 110,
+        decoration: BoxDecoration(
+          color: const Color(0xFF1E293B),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: const Color(0xFF334155)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, color: color, size: 24),
+            const SizedBox(height: 8),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+              textAlign: TextAlign.center,
             ),
-          ),
-          onPressed: onPressed,
-          child: Text(
-            label,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
+            Text(
+              description,
+              style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class _IndicatorDemoCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final Widget indicator;
+
+  const _IndicatorDemoCard({
+    required this.title,
+    required this.description,
+    required this.indicator,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E293B),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFF334155)),
+      ),
+      child: Row(
+        children: [
+          _IndicatorCircle(child: indicator),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 15,
+                  ),
+                ),
+                Text(
+                  description,
+                  style: const TextStyle(
+                    color: Color(0xFF94A3B8),
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _IndicatorCircle extends StatelessWidget {
+  final Widget child;
+  const _IndicatorCircle({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 60,
+      height: 60,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Color(0xFF0F172A),
+      ),
+      child: Center(child: child),
+    );
+  }
+}
+
+class _HeroItem extends StatelessWidget {
+  final String label;
+  final Widget indicator;
+
+  const _HeroItem({required this.label, required this.indicator});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        indicator,
+        const SizedBox(height: 8),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w800,
+            color: Color(0xFF64748B),
+          ),
+        ),
+      ],
     );
   }
 }

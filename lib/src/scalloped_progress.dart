@@ -53,25 +53,29 @@ class _ScallopedProgressIndicatorState extends State<ScallopedProgressIndicator>
     final trackColor =
         widget.backgroundColor ?? indicatorColor.withValues(alpha: 0.15);
 
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return SizedBox(
-          width: widget.size,
-          height: widget.size,
-          child: CustomPaint(
-            painter: _ScallopedPainter(
-              value: widget.value,
-              rotation: _controller.value,
-              strokeWidth: widget.strokeWidth,
-              color: indicatorColor,
-              backgroundColor: trackColor,
-              waveCount: widget.waveCount,
-              gradient: widget.gradient,
+    return Semantics(
+      label: 'Loading indicator',
+      value: 'busy',
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) {
+          return SizedBox(
+            width: widget.size,
+            height: widget.size,
+            child: CustomPaint(
+              painter: _ScallopedPainter(
+                value: widget.value,
+                rotation: _controller.value,
+                strokeWidth: widget.strokeWidth,
+                color: indicatorColor,
+                backgroundColor: trackColor,
+                waveCount: widget.waveCount,
+                gradient: widget.gradient,
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

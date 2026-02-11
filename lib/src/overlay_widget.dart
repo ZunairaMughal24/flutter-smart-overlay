@@ -16,6 +16,8 @@ class OverlayOptions {
   final int? waveCount;
   final Gradient? gradient;
   final bool useBlur;
+  final Widget? indicator;
+  final Widget? messageWidget;
 
   const OverlayOptions({
     this.backgroundColor,
@@ -28,6 +30,8 @@ class OverlayOptions {
     this.waveCount,
     this.gradient,
     this.useBlur = false,
+    this.indicator,
+    this.messageWidget,
   });
 }
 
@@ -120,19 +124,23 @@ class _SmartOverlayWidgetState extends State<SmartOverlayWidget>
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         _buildIconOrLoader(),
-                        if (widget.options.message != null) ...[
+                        if (widget.options.messageWidget != null ||
+                            widget.options.message != null) ...[
                           const SizedBox(width: 16),
                           Flexible(
-                            child: Text(
-                              widget.options.message!,
-                              textAlign: TextAlign.left,
-                              style: GoogleFonts.nunito(
-                                color:
-                                    widget.options.textColor ?? Colors.black87,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                            child:
+                                widget.options.messageWidget ??
+                                Text(
+                                  widget.options.message!,
+                                  textAlign: TextAlign.left,
+                                  style: GoogleFonts.nunito(
+                                    color:
+                                        widget.options.textColor ??
+                                        Colors.black87,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                           ),
                         ],
                       ],
@@ -162,25 +170,28 @@ class _SmartOverlayWidgetState extends State<SmartOverlayWidget>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        ScallopedProgressIndicator(
-          color: widget.options.iconColor ?? Colors.white,
-          size: 90,
-          strokeWidth: 4,
-          waveCount: widget.options.waveCount ?? 14,
-          gradient: widget.options.gradient,
-        ),
-        if (widget.options.message != null) ...[
-          const SizedBox(height: 24),
-          Text(
-            widget.options.message!,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.nunito(
-              color: widget.options.textColor ?? Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.3,
+        widget.options.indicator ??
+            ScallopedProgressIndicator(
+              color: widget.options.iconColor ?? Colors.white,
+              size: 90,
+              strokeWidth: 4,
+              waveCount: widget.options.waveCount ?? 14,
+              gradient: widget.options.gradient,
             ),
-          ),
+        if (widget.options.messageWidget != null ||
+            widget.options.message != null) ...[
+          const SizedBox(height: 24),
+          widget.options.messageWidget ??
+              Text(
+                widget.options.message!,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.nunito(
+                  color: widget.options.textColor ?? Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.3,
+                ),
+              ),
         ],
       ],
     );
@@ -191,11 +202,12 @@ class _SmartOverlayWidgetState extends State<SmartOverlayWidget>
       return widget.options.customWidget!;
     }
 
-    return ScallopedProgressIndicator(
-      color: widget.options.iconColor ?? Colors.blue,
-      size: 50,
-      strokeWidth: 2,
-      gradient: widget.options.gradient,
-    );
+    return widget.options.indicator ??
+        ScallopedProgressIndicator(
+          color: widget.options.iconColor ?? Colors.blue,
+          size: 50,
+          strokeWidth: 2,
+          gradient: widget.options.gradient,
+        );
   }
 }

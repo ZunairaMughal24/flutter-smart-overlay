@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'overlay_widget.dart';
 
-
 class SmartOverlayManager {
   static final SmartOverlayManager _instance = SmartOverlayManager._internal();
   factory SmartOverlayManager() => _instance;
@@ -11,7 +10,6 @@ class SmartOverlayManager {
   OverlayEntry? _entry;
   Timer? _timer;
 
- 
   void show({
     required BuildContext context,
     required SmartOverlayType type,
@@ -25,10 +23,11 @@ class SmartOverlayManager {
 
     Overlay.of(context).insert(_entry!);
 
-    final duration = options.autoDismissDuration ?? const Duration(seconds: 5);
-    _timer = Timer(duration, () {
-      hide();
-    });
+    if (options.autoDismissDuration != null) {
+      _timer = Timer(options.autoDismissDuration!, () {
+        hide();
+      });
+    }
   }
 
   void hide() {
