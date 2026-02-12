@@ -96,6 +96,22 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Liquid Indicator',
+                description: 'Fluid sine-wave filling animation',
+                indicator: LiquidProgressIndicator(
+                  size: 40,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(255, 50, 173, 230),
+                      Color(0xFF2DD4BF),
+                    ],
+                  ),
+                ),
+              ),
 
               const SizedBox(height: 32),
               _buildSectionHeader(
@@ -106,6 +122,8 @@ class GuideScreen extends StatelessWidget {
               _buildDotsCustomizationRow(),
               const SizedBox(height: 16),
               _buildScallopedCustomizationRow(),
+              const SizedBox(height: 16),
+              _buildLiquidCustomizationRow(),
               const SizedBox(height: 20),
             ],
           ),
@@ -174,6 +192,35 @@ class GuideScreen extends StatelessWidget {
                   size: 60,
                 ),
               );
+            },
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: _ActionCard(
+            label: 'Liquid        Overlay',
+            description: 'Water fill style',
+            icon: Icons.water_drop_outlined,
+            color: const Color(0xFF0EA5E9),
+            onTap: () async {
+              SmartOverlay.show(
+                context: context,
+                message: 'Streaming assets...',
+                indicator: const LiquidProgressIndicator(
+                  size: 70,
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromARGB(255, 215, 238, 248),
+                      Color.fromARGB(255, 215, 238, 248),
+                      Color.fromARGB(255, 45, 201, 212),
+                    ],
+                  ),
+                ),
+              );
+              await Future.delayed(const Duration(seconds: 3));
+              SmartOverlay.hide();
             },
           ),
         ),
@@ -309,6 +356,45 @@ class GuideScreen extends StatelessWidget {
                 Color(0xFFFB923C),
                 Color.fromARGB(255, 218, 233, 89),
               ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLiquidCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Calm',
+          indicator: const LiquidProgressIndicator(
+            size: 65,
+            waveAmplitude: 2,
+            waveFrequency: 1,
+            gradient: LinearGradient(
+              colors: [Color(0xFF0EA5E9), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Stormy',
+          indicator: const LiquidProgressIndicator(
+            size: 65,
+            waveAmplitude: 8,
+            waveFrequency: 2,
+            gradient: LinearGradient(
+              colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Progress',
+          indicator: const LiquidProgressIndicator(
+            size: 65,
+            value: 0.7,
+            gradient: LinearGradient(
+              colors: [Color(0xFFF43F5E), Color(0xFFFB923C)],
             ),
           ),
         ),
