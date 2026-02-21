@@ -123,6 +123,17 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Pulse Ring Indicator',
+                description: 'Strobed ring expansion with petals',
+                indicator: PulseRingProgressIndicator(
+                  size: 40,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFFF43F5E), Color(0xFFFB923C)],
+                  ),
+                ),
+              ),
 
               const SizedBox(height: 32),
               _buildSectionHeader(
@@ -137,6 +148,8 @@ class GuideScreen extends StatelessWidget {
               _buildLiquidCustomizationRow(),
               const SizedBox(height: 16),
               _buildRippleBloomCustomizationRow(),
+              const SizedBox(height: 16),
+              _buildPulseRingCustomizationRow(),
               const SizedBox(height: 20),
             ],
           ),
@@ -240,8 +253,8 @@ class GuideScreen extends StatelessWidget {
         const SizedBox(width: 8),
         Expanded(
           child: _ActionCard(
-            label: 'Glass       Overlay',
-            description: 'Blur background',
+            label: 'Ripple       Overlay',
+            description: 'Glass bloom',
             icon: Icons.blur_on_rounded,
             color: const Color(0xFFA855F7),
             onTap: () async {
@@ -251,7 +264,7 @@ class GuideScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'AI Processing...',
+                      'Syncing...',
                       style: GoogleFonts.nunito(
                         color: Colors.white,
                         fontSize: 18,
@@ -262,7 +275,7 @@ class GuideScreen extends StatelessWidget {
                     const Opacity(
                       opacity: 0.7,
                       child: Text(
-                        'Analyzing data patterns',
+                        'Establishing connection',
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
                     ),
@@ -270,11 +283,11 @@ class GuideScreen extends StatelessWidget {
                 ),
                 useBlur: true,
                 backgroundColor: Colors.black.withAlpha(150),
-                indicator: const FadingDotsProgressIndicator(
+                indicator: const RippleBloomProgressIndicator(
                   color: Colors.white,
                   size: 80,
-                  dotSize: 4,
-                  radius: 20,
+                  rippleCount: 3,
+                  strokeWidth: 2,
                 ),
               );
               await Future.delayed(const Duration(seconds: 3));
@@ -449,6 +462,49 @@ class GuideScreen extends StatelessWidget {
             showCenter: false,
             gradient: LinearGradient(
               colors: [Color(0xFFFB923C), Color(0xFFF43F5E), Color(0xFFA855F7)],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPulseRingCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Subtle',
+          indicator: const PulseRingProgressIndicator(
+            size: 65,
+            ringCount: 2,
+            strokeWidth: 1.5,
+            petalCount: 4,
+            gradient: LinearGradient(
+              colors: [Color(0xFF0EA5E9), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Radiant',
+          indicator: const PulseRingProgressIndicator(
+            size: 65,
+            ringCount: 3,
+            strokeWidth: 2.5,
+            petalCount: 8,
+            gradient: LinearGradient(
+              colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Clean',
+          indicator: const PulseRingProgressIndicator(
+            size: 65,
+            ringCount: 4,
+            strokeWidth: 2,
+            petalCount: 0,
+            gradient: LinearGradient(
+              colors: [Color(0xFF6366F1), Color(0xFF818CF8), Color(0xFFC084FC)],
             ),
           ),
         ),

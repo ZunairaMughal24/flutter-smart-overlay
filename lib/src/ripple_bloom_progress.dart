@@ -123,75 +123,23 @@ class _RippleBloomPainter extends CustomPainter {
 
       final double easedProgress = 1.0 - math.pow(1.0 - progress, 2.5);
 
-      final double radius = maxRadius * 0.15 + maxRadius * 0.85 * easedProgress;
+      final double radius = maxRadius * 0.12 + maxRadius * 0.88 * easedProgress;
 
-      final double opacity = (1.0 - easedProgress).clamp(0.0, 1.0);
+      final double opacity = (0.45 * (1.0 - easedProgress)).clamp(0.0, 1.0);
 
-      final double dynamicStroke = strokeWidth * (1.0 - easedProgress * 0.6);
-
-      final ringPaint = Paint()
-        ..color = color.withValues(alpha: opacity * 0.8)
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = dynamicStroke
+      final fillPaint = Paint()
+        ..color = color.withValues(alpha: opacity)
+        ..style = PaintingStyle.fill
         ..isAntiAlias = true;
 
       if (gradient != null) {
-        ringPaint.shader = gradient!.createShader(rect);
-        ringPaint.color = color.withValues(alpha: opacity * 0.8);
-      }
-
-      canvas.drawCircle(center, radius, ringPaint);
-
-      if (easedProgress > 0.1 && easedProgress < 0.85) {
-        _drawPetals(
-          canvas,
-          center,
-          radius,
-          easedProgress,
-          opacity,
-          dynamicStroke,
-          rect,
+        fillPaint.shader = gradient!.createShader(
+          Rect.fromCircle(center: center, radius: radius),
         );
+        fillPaint.color = color.withValues(alpha: opacity);
       }
-    }
-  }
 
-  void _drawPetals(
-    Canvas canvas,
-    Offset center,
-    double radius,
-    double progress,
-    double opacity,
-    double stroke,
-    Rect bounds,
-  ) {
-    final int petalCount = 6;
-    final double petalAngle = math.pi / 12;
-    final double rotation = animation * 2 * math.pi;
-
-    final petalPaint = Paint()
-      ..color = color.withValues(alpha: opacity * 0.5)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = stroke * 0.7
-      ..strokeCap = StrokeCap.round
-      ..isAntiAlias = true;
-
-    if (gradient != null) {
-      petalPaint.shader = gradient!.createShader(bounds);
-      petalPaint.color = color.withValues(alpha: opacity * 0.5);
-    }
-
-    for (int p = 0; p < petalCount; p++) {
-      final double baseAngle = (p * 2 * math.pi / petalCount) + rotation;
-
-      final Path petal = Path();
-      petal.addArc(
-        Rect.fromCircle(center: center, radius: radius),
-        baseAngle - petalAngle / 2,
-        petalAngle,
-      );
-
-      canvas.drawPath(petal, petalPaint);
+      canvas.drawCircle(center, radius, fillPaint);
     }
   }
 
@@ -200,7 +148,6 @@ class _RippleBloomPainter extends CustomPainter {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.rippleCount != rippleCount ||
-        oldDelegate.strokeWidth != strokeWidth ||
         oldDelegate.showCenter != showCenter;
   }
 }
