@@ -112,6 +112,17 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Ripple Bloom Indicator',
+                description: 'Expanding concentric ripple rings',
+                indicator: RippleBloomProgressIndicator(
+                  size: 40,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF2DD4BF), Color(0xFF0EA5E9)],
+                  ),
+                ),
+              ),
 
               const SizedBox(height: 32),
               _buildSectionHeader(
@@ -124,6 +135,8 @@ class GuideScreen extends StatelessWidget {
               _buildScallopedCustomizationRow(),
               const SizedBox(height: 16),
               _buildLiquidCustomizationRow(),
+              const SizedBox(height: 16),
+              _buildRippleBloomCustomizationRow(),
               const SizedBox(height: 20),
             ],
           ),
@@ -395,6 +408,47 @@ class GuideScreen extends StatelessWidget {
             value: 0.7,
             gradient: LinearGradient(
               colors: [Color(0xFFF43F5E), Color(0xFFFB923C)],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRippleBloomCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Gentle',
+          indicator: const RippleBloomProgressIndicator(
+            size: 65,
+            rippleCount: 2,
+            strokeWidth: 1.5,
+            gradient: LinearGradient(
+              colors: [Color(0xFF0EA5E9), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Bloom',
+          indicator: const RippleBloomProgressIndicator(
+            size: 65,
+            rippleCount: 4,
+            strokeWidth: 2.5,
+            gradient: LinearGradient(
+              colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Pulse',
+          indicator: const RippleBloomProgressIndicator(
+            size: 65,
+            rippleCount: 3,
+            strokeWidth: 3,
+            showCenter: false,
+            gradient: LinearGradient(
+              colors: [Color(0xFFFB923C), Color(0xFFF43F5E), Color(0xFFA855F7)],
             ),
           ),
         ),
