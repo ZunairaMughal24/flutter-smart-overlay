@@ -134,6 +134,17 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Chasing Dots Indicator',
+                description: 'Orbiting dots with motion trails',
+                indicator: ChasingDotsProgressIndicator(
+                  size: 40,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+                  ),
+                ),
+              ),
 
               const SizedBox(height: 32),
               _buildSectionHeader(
@@ -150,6 +161,8 @@ class GuideScreen extends StatelessWidget {
               _buildRippleBloomCustomizationRow(),
               const SizedBox(height: 16),
               _buildPulseRingCustomizationRow(),
+              const SizedBox(height: 16),
+              _buildChasingDotsCustomizationRow(),
               const SizedBox(height: 20),
             ],
           ),
@@ -505,6 +518,46 @@ class GuideScreen extends StatelessWidget {
             petalCount: 0,
             gradient: LinearGradient(
               colors: [Color(0xFF6366F1), Color(0xFF818CF8), Color(0xFFC084FC)],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildChasingDotsCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Duo',
+          indicator: const ChasingDotsProgressIndicator(
+            size: 65,
+            dotCount: 2,
+            dotSize: 5,
+            gradient: LinearGradient(
+              colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Swarm',
+          indicator: const ChasingDotsProgressIndicator(
+            size: 65,
+            dotCount: 5,
+            dotSize: 4,
+            gradient: LinearGradient(
+              colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Comet',
+          indicator: const ChasingDotsProgressIndicator(
+            size: 65,
+            dotCount: 1,
+            dotSize: 7,
+            gradient: LinearGradient(
+              colors: [Color(0xFFFB923C), Color(0xFFF43F5E)],
             ),
           ),
         ),
