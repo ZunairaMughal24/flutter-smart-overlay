@@ -145,6 +145,17 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Double Bounce Indicator',
+                description: 'Two circles breathing in opposite rhythm',
+                indicator: DoubleBounceProgressIndicator(
+                  size: 40,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF6366F1), Color(0xFFA855F7)],
+                  ),
+                ),
+              ),
 
               const SizedBox(height: 32),
               _buildSectionHeader(
@@ -163,6 +174,8 @@ class GuideScreen extends StatelessWidget {
               _buildPulseRingCustomizationRow(),
               const SizedBox(height: 16),
               _buildChasingDotsCustomizationRow(),
+              const SizedBox(height: 16),
+              _buildDoubleBounceCustomizationRow(),
               const SizedBox(height: 20),
             ],
           ),
@@ -558,6 +571,39 @@ class GuideScreen extends StatelessWidget {
             dotSize: 7,
             gradient: LinearGradient(
               colors: [Color(0xFFFB923C), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDoubleBounceCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Classic',
+          indicator: const DoubleBounceProgressIndicator(
+            size: 65,
+            gradient: LinearGradient(
+              colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Contrast',
+          indicator: const DoubleBounceProgressIndicator(
+            size: 65,
+            color: Color(0xFFF43F5E),
+            secondaryColor: Color(0xFF2DD4BF),
+          ),
+        ),
+        _HeroItem(
+          label: 'Neon',
+          indicator: const DoubleBounceProgressIndicator(
+            size: 65,
+            gradient: LinearGradient(
+              colors: [Color(0xFFA855F7), Color(0xFFC084FC), Color(0xFF818CF8)],
             ),
           ),
         ),

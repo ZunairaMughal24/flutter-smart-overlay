@@ -8,3 +8,4 @@ export 'src/liquid_progress.dart';
 export 'src/ripple_bloom_progress.dart';
 export 'src/pulse_ring_progress.dart';
 export 'src/chasing_dots_progress.dart';
+export 'src/double_bounce_progress.dart';
