@@ -14,6 +14,8 @@ class LeafSpinnerProgressIndicator extends StatefulWidget {
 
   final Duration speed;
 
+  final Curve curve;
+
   const LeafSpinnerProgressIndicator({
     super.key,
     this.size = 50.0,
@@ -22,6 +24,7 @@ class LeafSpinnerProgressIndicator extends StatefulWidget {
     this.leafCount = 12,
     this.strokeWidth = 2.0,
     this.speed = const Duration(milliseconds: 1200),
+    this.curve = Curves.easeInOutQuart,
   });
 
   @override
@@ -61,9 +64,13 @@ class _LeafSpinnerProgressIndicatorState
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
+
             return CustomPaint(
               painter: _LeafSpinnerPainter(
-                animation: _controller.value,
+                animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
                 leafCount: widget.leafCount,

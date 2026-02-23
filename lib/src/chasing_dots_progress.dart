@@ -16,6 +16,8 @@ class ChasingDotsProgressIndicator extends StatefulWidget {
 
   final Color? sparkleColor;
 
+  final Curve curve;
+
   const ChasingDotsProgressIndicator({
     super.key,
     this.size = 60.0,
@@ -28,6 +30,7 @@ class ChasingDotsProgressIndicator extends StatefulWidget {
     this.showSparkle = false,
     this.sparkleCount = 12,
     this.sparkleColor,
+    this.curve = Curves.easeInOutQuart,
   });
 
   @override
@@ -69,9 +72,13 @@ class _ChasingDotsProgressIndicatorState
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
+
             return CustomPaint(
               painter: _ChasingDotsPainter(
-                animation: _controller.value,
+                animation: animatedValue,
                 color: baseColor,
                 trailColor: trailColor,
                 gradient: widget.gradient,
@@ -233,7 +240,6 @@ class _ChasingDotsPainter extends CustomPainter {
     final math.Random random = math.Random(dotIndex);
 
     for (int i = 0; i < sparkleCount; i++) {
-      // Each sparkle is staggered behind the head
       final double sparkleProgress =
           (animation + stagger - (i / sparkleCount) * 0.15) % 1.0;
       final double t = _asymmetricEase(sparkleProgress, 1.0 + (dotIndex * 0.6));
@@ -242,7 +248,6 @@ class _ChasingDotsPainter extends CustomPainter {
       final double opacity =
           (1.0 - (i / sparkleCount)) * (1.0 - (dotIndex * 0.3));
 
-      // Professionally, sparkle size should be relative to dotSize (Proportional Sizing)
       final double baseSparkleSize = dotSize * 0.45;
       final double sparkleSize =
           (baseSparkleSize - (i / sparkleCount) * (baseSparkleSize * 0.7))
@@ -251,7 +256,6 @@ class _ChasingDotsPainter extends CustomPainter {
       final Offset sparklePos =
           center + Offset(radius * math.cos(angle), radius * math.sin(angle));
 
-      // Jitter relative to dot size as well
       final double jitterRange = (i / sparkleCount) * (dotSize * 0.5);
       final double jitterX = (random.nextDouble() - 0.5) * jitterRange;
       final double jitterY = (random.nextDouble() - 0.5) * jitterRange;

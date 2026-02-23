@@ -606,11 +606,13 @@ class GuideScreen extends StatelessWidget {
             size: 65,
             dotCount: 2,
             dotSize: 5,
+            curve: Curves.linear,
             gradient: LinearGradient(
               colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
             ),
           ),
         ),
+
         _HeroItem(
           label: 'Swarm',
           indicator: const ChasingDotsProgressIndicator(
@@ -727,16 +729,19 @@ class GuideScreen extends StatelessWidget {
           indicator: const LeafSpinnerProgressIndicator(
             size: 65,
             leafCount: 18,
+            curve: Curves.linear,
             gradient: LinearGradient(
               colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
             ),
           ),
         ),
+
         _HeroItem(
           label: 'Minimal',
           indicator: const LeafSpinnerProgressIndicator(
             size: 65,
             leafCount: 6,
+            curve: Curves.linear,
             gradient: LinearGradient(
               colors: [Color(0xFFFB923C), Color.fromARGB(255, 238, 153, 43)],
             ),
@@ -755,6 +760,7 @@ class GuideScreen extends StatelessWidget {
             size: 65,
             arrowCount: 2,
             strokeWidth: 4,
+            curve: Curves.linearToEaseOut,
             gradient: LinearGradient(
               colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
             ),
@@ -766,6 +772,7 @@ class GuideScreen extends StatelessWidget {
             size: 65,
             arrowCount: 3,
             strokeWidth: 3,
+            curve: Easing.legacy,
             gradient: LinearGradient(
               colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
             ),

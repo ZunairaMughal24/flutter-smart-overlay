@@ -14,6 +14,9 @@ class ChasingArrowsProgressIndicator extends StatefulWidget {
 
   final Duration speed;
 
+  /// The curve used for the animation. Defaults to [Curves.easeInOutQuart].
+  final Curve curve;
+
   const ChasingArrowsProgressIndicator({
     super.key,
     this.size = 50.0,
@@ -22,6 +25,7 @@ class ChasingArrowsProgressIndicator extends StatefulWidget {
     this.arrowCount = 3,
     this.strokeWidth = 3.5,
     this.speed = const Duration(milliseconds: 1500),
+    this.curve = Curves.easeInOutQuart,
   });
 
   @override
@@ -61,9 +65,13 @@ class _ChasingArrowsProgressIndicatorState
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
+
             return CustomPaint(
               painter: _ChasingArrowsPainter(
-                animation: _controller.value,
+                animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
                 arrowCount: widget.arrowCount,
