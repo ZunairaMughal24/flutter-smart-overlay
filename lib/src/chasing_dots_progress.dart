@@ -10,6 +10,12 @@ class ChasingDotsProgressIndicator extends StatefulWidget {
   final double dotSize;
   final Duration speed;
 
+  final bool showSparkle;
+
+  final int sparkleCount;
+
+  final Color? sparkleColor;
+
   const ChasingDotsProgressIndicator({
     super.key,
     this.size = 60.0,
@@ -19,6 +25,9 @@ class ChasingDotsProgressIndicator extends StatefulWidget {
     this.dotCount = 2,
     this.dotSize = 6.0,
     this.speed = const Duration(milliseconds: 1800),
+    this.showSparkle = false,
+    this.sparkleCount = 12,
+    this.sparkleColor,
   });
 
   @override
@@ -68,6 +77,9 @@ class _ChasingDotsProgressIndicatorState
                 gradient: widget.gradient,
                 dotCount: widget.dotCount,
                 dotSize: widget.dotSize,
+                showSparkle: widget.showSparkle,
+                sparkleCount: widget.sparkleCount,
+                sparkleColor: widget.sparkleColor,
               ),
             );
           },
@@ -84,6 +96,9 @@ class _ChasingDotsPainter extends CustomPainter {
   final Gradient? gradient;
   final int dotCount;
   final double dotSize;
+  final bool showSparkle;
+  final int sparkleCount;
+  final Color? sparkleColor;
 
   _ChasingDotsPainter({
     required this.animation,
@@ -92,6 +107,9 @@ class _ChasingDotsPainter extends CustomPainter {
     this.gradient,
     required this.dotCount,
     required this.dotSize,
+    required this.showSparkle,
+    required this.sparkleCount,
+    this.sparkleColor,
   });
 
   @override
@@ -100,7 +118,6 @@ class _ChasingDotsPainter extends CustomPainter {
     final double orbitRadius =
         (math.min(size.width, size.height) - dotSize) / 2;
 
-    // Draw the faint orbit track
     final trackPaint = Paint()
       ..color = trailColor.withValues(alpha: 0.15)
       ..style = PaintingStyle.stroke
@@ -109,7 +126,6 @@ class _ChasingDotsPainter extends CustomPainter {
 
     canvas.drawCircle(center, orbitRadius, trackPaint);
 
-    // Draw each chasing dot with staggered positions and eased motion
     for (int i = 0; i < dotCount; i++) {
       final double stagger = i / dotCount;
 
@@ -141,6 +157,10 @@ class _ChasingDotsPainter extends CustomPainter {
         );
       }
 
+      if (showSparkle) {
+        _drawSparkleTrail(canvas, center, orbitRadius, animation, stagger, i);
+      }
+
       canvas.drawCircle(dotCenter, currentDotSize, dotPaint);
 
       if (i == 0) {
@@ -152,7 +172,16 @@ class _ChasingDotsPainter extends CustomPainter {
         canvas.drawCircle(dotCenter, currentDotSize * 1.8, glowPaint);
       }
 
-      _drawTrail(canvas, center, orbitRadius, angle, dotPaint, currentDotSize);
+      if (!showSparkle) {
+        _drawTrail(
+          canvas,
+          center,
+          orbitRadius,
+          angle,
+          dotPaint,
+          currentDotSize,
+        );
+      }
     }
   }
 
@@ -192,11 +221,60 @@ class _ChasingDotsPainter extends CustomPainter {
     }
   }
 
+  void _drawSparkleTrail(
+    Canvas canvas,
+    Offset center,
+    double radius,
+    double animation,
+    double stagger,
+    int dotIndex,
+  ) {
+    final sparklePaint = Paint()..style = PaintingStyle.fill;
+    final math.Random random = math.Random(dotIndex);
+
+    for (int i = 0; i < sparkleCount; i++) {
+      // Each sparkle is staggered behind the head
+      final double sparkleProgress =
+          (animation + stagger - (i / sparkleCount) * 0.15) % 1.0;
+      final double t = _asymmetricEase(sparkleProgress, 1.0 + (dotIndex * 0.6));
+      final double angle = t * 2 * math.pi - (math.pi / 2);
+
+      final double opacity =
+          (1.0 - (i / sparkleCount)) * (1.0 - (dotIndex * 0.3));
+
+      // Professionally, sparkle size should be relative to dotSize (Proportional Sizing)
+      final double baseSparkleSize = dotSize * 0.45;
+      final double sparkleSize =
+          (baseSparkleSize - (i / sparkleCount) * (baseSparkleSize * 0.7))
+              .clamp(0.5, baseSparkleSize);
+
+      final Offset sparklePos =
+          center + Offset(radius * math.cos(angle), radius * math.sin(angle));
+
+      // Jitter relative to dot size as well
+      final double jitterRange = (i / sparkleCount) * (dotSize * 0.5);
+      final double jitterX = (random.nextDouble() - 0.5) * jitterRange;
+      final double jitterY = (random.nextDouble() - 0.5) * jitterRange;
+
+      final baseSparkleColor = sparkleColor ?? color;
+      sparklePaint.color = baseSparkleColor.withValues(
+        alpha: opacity.clamp(0.0, 1.0) * 0.5,
+      );
+      canvas.drawCircle(
+        sparklePos + Offset(jitterX, jitterY),
+        sparkleSize,
+        sparklePaint,
+      );
+    }
+  }
+
   @override
   bool shouldRepaint(covariant _ChasingDotsPainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.dotCount != dotCount ||
-        oldDelegate.dotSize != dotSize;
+        oldDelegate.dotSize != dotSize ||
+        oldDelegate.showSparkle != showSparkle ||
+        oldDelegate.sparkleColor != sparkleColor;
   }
 }

@@ -167,6 +167,43 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Leaf Spinner',
+                description: 'Organic petal-shaped rotation',
+                indicator: LeafSpinnerProgressIndicator(
+                  size: 40,
+                  leafCount: 12,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF2DD4BF), Color(0xFF6366F1)],
+                  ),
+                ),
+              ),
+              const _IndicatorDemoCard(
+                title: 'Chasing Arrows',
+                description: 'Solid rotating arrows in a sync pattern',
+                indicator: ChasingArrowsProgressIndicator(
+                  size: 40,
+                  arrowCount: 3,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Chasing Dots',
+                description: 'Orbiting points with trailing motion',
+                indicator: ChasingDotsProgressIndicator(
+                  size: 40,
+                  dotCount: 3,
+                  showSparkle: true,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
 
               const SizedBox(height: 32),
               _buildSectionHeader(
@@ -182,13 +219,18 @@ class GuideScreen extends StatelessWidget {
               const SizedBox(height: 16),
               _buildRippleBloomCustomizationRow(),
               const SizedBox(height: 16),
-              _buildClassicSpinnerCustomizationRow(),
+              _buildLeafSpinnerCustomizationRow(),
               const SizedBox(height: 16),
               _buildPulseRingCustomizationRow(),
               const SizedBox(height: 16),
               _buildChasingDotsCustomizationRow(),
               const SizedBox(height: 16),
               _buildDoubleBounceCustomizationRow(),
+              const SizedBox(height: 16),
+              _buildClassicSpinnerCustomizationRow(),
+
+              const SizedBox(height: 16),
+              _buildChasingArrowsCustomizationRow(),
 
               const SizedBox(height: 20),
             ],
@@ -388,8 +430,8 @@ class GuideScreen extends StatelessWidget {
           label: 'Standard',
           indicator: const ScallopedProgressIndicator(
             size: 65,
-            strokeWidth: 2,
-            waveCount: 9,
+            strokeWidth: 3,
+            waveCount: 10,
             gradient: LinearGradient(
               colors: [Color(0xFF0EA5E9), Color(0xFF2DD4BF)],
             ),
@@ -436,7 +478,7 @@ class GuideScreen extends StatelessWidget {
           label: 'Calm',
           indicator: const LiquidProgressIndicator(
             size: 60,
-            waveAmplitude: 2,
+            waveAmplitude: 3,
             waveFrequency: 1,
             gradient: LinearGradient(
               colors: [
@@ -450,7 +492,7 @@ class GuideScreen extends StatelessWidget {
           label: 'Stormy',
           indicator: const LiquidProgressIndicator(
             size: 60,
-            waveAmplitude: 8,
+            waveAmplitude: 6,
             waveFrequency: 2,
             gradient: LinearGradient(
               colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
@@ -585,7 +627,7 @@ class GuideScreen extends StatelessWidget {
           indicator: const ChasingDotsProgressIndicator(
             size: 65,
             dotCount: 1,
-            dotSize: 7,
+            dotSize: 6,
             gradient: LinearGradient(
               colors: [Color(0xFFFB923C), Color(0xFFF43F5E)],
             ),
@@ -657,6 +699,83 @@ class GuideScreen extends StatelessWidget {
           indicator: const ClassicSpinnerProgressIndicator(
             size: 65,
             barCount: 8,
+            strokeWidth: 6,
+            gradient: LinearGradient(
+              colors: [Color(0xFFFB923C), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLeafSpinnerCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Standard',
+          indicator: const LeafSpinnerProgressIndicator(
+            size: 65,
+            leafCount: 12,
+            gradient: LinearGradient(
+              colors: [Color(0xFF2DD4BF), Color(0xFF6366F1)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Petals',
+          indicator: const LeafSpinnerProgressIndicator(
+            size: 65,
+            leafCount: 18,
+            gradient: LinearGradient(
+              colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Minimal',
+          indicator: const LeafSpinnerProgressIndicator(
+            size: 65,
+            leafCount: 6,
+            gradient: LinearGradient(
+              colors: [Color(0xFFFB923C), Color.fromARGB(255, 238, 153, 43)],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildChasingArrowsCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Sync',
+          indicator: const ChasingArrowsProgressIndicator(
+            size: 65,
+            arrowCount: 2,
+            strokeWidth: 4,
+            gradient: LinearGradient(
+              colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Triple',
+          indicator: const ChasingArrowsProgressIndicator(
+            size: 65,
+            arrowCount: 3,
+            strokeWidth: 3,
+            gradient: LinearGradient(
+              colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Bold',
+          indicator: const ChasingArrowsProgressIndicator(
+            size: 65,
+            arrowCount: 1,
             strokeWidth: 6,
             gradient: LinearGradient(
               colors: [Color(0xFFFB923C), Color(0xFFF43F5E)],

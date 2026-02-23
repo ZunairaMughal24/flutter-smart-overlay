@@ -10,3 +10,5 @@ export 'src/pulse_ring_progress.dart';
 export 'src/chasing_dots_progress.dart';
 export 'src/double_bounce_progress.dart';
 export 'src/classic_spinner_progress.dart';
+export 'src/leaf_spinner_progress.dart';
+export 'src/chasing_arrows_progress.dart';
