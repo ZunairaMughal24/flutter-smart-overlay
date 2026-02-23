@@ -156,6 +156,17 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 8),
+              const _IndicatorDemoCard(
+                title: 'Classic Spinner',
+                description: 'Cascading radiating bars',
+                indicator: ClassicSpinnerProgressIndicator(
+                  size: 40,
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF6366F1), Color(0xFFA855F7)],
+                  ),
+                ),
+              ),
 
               const SizedBox(height: 32),
               _buildSectionHeader(
@@ -171,11 +182,14 @@ class GuideScreen extends StatelessWidget {
               const SizedBox(height: 16),
               _buildRippleBloomCustomizationRow(),
               const SizedBox(height: 16),
+              _buildClassicSpinnerCustomizationRow(),
+              const SizedBox(height: 16),
               _buildPulseRingCustomizationRow(),
               const SizedBox(height: 16),
               _buildChasingDotsCustomizationRow(),
               const SizedBox(height: 16),
               _buildDoubleBounceCustomizationRow(),
+
               const SizedBox(height: 20),
             ],
           ),
@@ -421,18 +435,21 @@ class GuideScreen extends StatelessWidget {
         _HeroItem(
           label: 'Calm',
           indicator: const LiquidProgressIndicator(
-            size: 65,
+            size: 60,
             waveAmplitude: 2,
             waveFrequency: 1,
             gradient: LinearGradient(
-              colors: [Color(0xFF0EA5E9), Color(0xFF2DD4BF)],
+              colors: [
+                Color.fromARGB(255, 171, 224, 248),
+                Color.fromARGB(255, 41, 186, 215),
+              ],
             ),
           ),
         ),
         _HeroItem(
           label: 'Stormy',
           indicator: const LiquidProgressIndicator(
-            size: 65,
+            size: 60,
             waveAmplitude: 8,
             waveFrequency: 2,
             gradient: LinearGradient(
@@ -443,7 +460,7 @@ class GuideScreen extends StatelessWidget {
         _HeroItem(
           label: 'Progress',
           indicator: const LiquidProgressIndicator(
-            size: 65,
+            size: 60,
             value: 0.7,
             gradient: LinearGradient(
               colors: [Color(0xFFF43F5E), Color(0xFFFB923C)],
@@ -610,6 +627,45 @@ class GuideScreen extends StatelessWidget {
       ],
     );
   }
+
+  Widget _buildClassicSpinnerCustomizationRow() {
+    return _CustomizationHost(
+      children: [
+        _HeroItem(
+          label: 'Standard',
+          indicator: const ClassicSpinnerProgressIndicator(
+            size: 65,
+            barCount: 12,
+            gradient: LinearGradient(
+              colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Dense',
+          indicator: const ClassicSpinnerProgressIndicator(
+            size: 65,
+            barCount: 20,
+            strokeWidth: 2,
+            gradient: LinearGradient(
+              colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+        _HeroItem(
+          label: 'Bold',
+          indicator: const ClassicSpinnerProgressIndicator(
+            size: 65,
+            barCount: 8,
+            strokeWidth: 6,
+            gradient: LinearGradient(
+              colors: [Color(0xFFFB923C), Color(0xFFF43F5E)],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class _CustomizationHost extends StatelessWidget {
@@ -766,9 +822,9 @@ class _HeroItem extends StatelessWidget {
         Text(
           label,
           style: const TextStyle(
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: FontWeight.w800,
-            color: Color(0xFF64748B),
+            color: Color.fromARGB(255, 111, 133, 162),
           ),
         ),
       ],
