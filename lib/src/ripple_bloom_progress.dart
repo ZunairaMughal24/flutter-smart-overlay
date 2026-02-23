@@ -19,7 +19,10 @@ class RippleBloomProgressIndicator extends StatefulWidget {
     this.strokeWidth = 2.0,
     this.speed = const Duration(milliseconds: 2400),
     this.showCenter = true,
+    this.curve = Curves.linear,
   });
+
+  final Curve curve;
 
   @override
   State<RippleBloomProgressIndicator> createState() =>
@@ -58,9 +61,12 @@ class _RippleBloomProgressIndicatorState
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
             return CustomPaint(
               painter: _RippleBloomPainter(
-                animation: _controller.value,
+                animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
                 rippleCount: widget.rippleCount,

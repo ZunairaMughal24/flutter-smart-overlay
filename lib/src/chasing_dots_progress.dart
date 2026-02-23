@@ -30,7 +30,7 @@ class ChasingDotsProgressIndicator extends StatefulWidget {
     this.showSparkle = false,
     this.sparkleCount = 12,
     this.sparkleColor,
-    this.curve = Curves.easeInOutQuart,
+    this.curve = Curves.linear,
   });
 
   @override

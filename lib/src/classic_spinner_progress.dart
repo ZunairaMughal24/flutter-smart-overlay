@@ -17,7 +17,10 @@ class ClassicSpinnerProgressIndicator extends StatefulWidget {
     this.barCount = 12,
     this.strokeWidth = 3.5,
     this.speed = const Duration(milliseconds: 1000),
+    this.curve = Curves.linear,
   });
+
+  final Curve curve;
 
   @override
   State<ClassicSpinnerProgressIndicator> createState() =>
@@ -56,9 +59,12 @@ class _ClassicSpinnerProgressIndicatorState
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
             return CustomPaint(
               painter: _ClassicSpinnerPainter(
-                animation: _controller.value,
+                animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
                 barCount: widget.barCount,

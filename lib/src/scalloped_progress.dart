@@ -19,7 +19,10 @@ class ScallopedProgressIndicator extends StatefulWidget {
     this.waveCount = 8,
     this.size = 48.0,
     this.gradient,
+    this.curve = Curves.linear,
   });
+
+  final Curve curve;
 
   @override
   State<ScallopedProgressIndicator> createState() =>
@@ -59,13 +62,16 @@ class _ScallopedProgressIndicatorState extends State<ScallopedProgressIndicator>
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
+          final double animatedValue = widget.curve.transform(
+            _controller.value,
+          );
           return SizedBox(
             width: widget.size,
             height: widget.size,
             child: CustomPaint(
               painter: _ScallopedPainter(
                 value: widget.value,
-                rotation: _controller.value,
+                rotation: animatedValue,
                 strokeWidth: widget.strokeWidth,
                 color: indicatorColor,
                 backgroundColor: trackColor,

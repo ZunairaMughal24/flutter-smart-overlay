@@ -190,20 +190,6 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
-              const _IndicatorDemoCard(
-                title: 'Chasing Dots',
-                description: 'Orbiting points with trailing motion',
-                indicator: ChasingDotsProgressIndicator(
-                  size: 40,
-                  dotCount: 3,
-                  showSparkle: true,
-                  gradient: LinearGradient(
-                    colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
 
               const SizedBox(height: 32),
               _buildSectionHeader(
@@ -456,8 +442,9 @@ class GuideScreen extends StatelessWidget {
           label: 'Bold Stroke',
           indicator: const ScallopedProgressIndicator(
             size: 65,
-            strokeWidth: 6,
+            strokeWidth: 5,
             waveCount: 6,
+            curve: Curves.easeInOut,
             gradient: LinearGradient(
               colors: [
                 Color(0xFFF43F5E),
@@ -480,6 +467,7 @@ class GuideScreen extends StatelessWidget {
             size: 60,
             waveAmplitude: 3,
             waveFrequency: 1,
+
             gradient: LinearGradient(
               colors: [
                 Color.fromARGB(255, 171, 224, 248),
@@ -494,6 +482,7 @@ class GuideScreen extends StatelessWidget {
             size: 60,
             waveAmplitude: 6,
             waveFrequency: 2,
+
             gradient: LinearGradient(
               colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
             ),
@@ -503,7 +492,10 @@ class GuideScreen extends StatelessWidget {
           label: 'Progress',
           indicator: const LiquidProgressIndicator(
             size: 60,
-            value: 0.7,
+            value: 0.6,
+            waveAmplitude: 2,
+            waveFrequency: 2,
+
             gradient: LinearGradient(
               colors: [Color(0xFFF43F5E), Color(0xFFFB923C)],
             ),
@@ -588,6 +580,7 @@ class GuideScreen extends StatelessWidget {
             ringCount: 4,
             strokeWidth: 2,
             petalCount: 0,
+            curve: Curves.easeInOut,
             gradient: LinearGradient(
               colors: [Color(0xFF6366F1), Color(0xFF818CF8), Color(0xFFC084FC)],
             ),
@@ -619,6 +612,7 @@ class GuideScreen extends StatelessWidget {
             size: 65,
             dotCount: 5,
             dotSize: 4,
+            curve: Curves.fastOutSlowIn,
             gradient: LinearGradient(
               colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
             ),
@@ -630,6 +624,7 @@ class GuideScreen extends StatelessWidget {
             size: 65,
             dotCount: 1,
             dotSize: 6,
+            curve: Curves.easeInOut,
             gradient: LinearGradient(
               colors: [Color(0xFFFB923C), Color(0xFFF43F5E)],
             ),
@@ -729,7 +724,7 @@ class GuideScreen extends StatelessWidget {
           indicator: const LeafSpinnerProgressIndicator(
             size: 65,
             leafCount: 18,
-            curve: Curves.linear,
+            curve: Curves.easeInOut,
             gradient: LinearGradient(
               colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
             ),
@@ -762,7 +757,7 @@ class GuideScreen extends StatelessWidget {
             strokeWidth: 4,
             curve: Curves.linearToEaseOut,
             gradient: LinearGradient(
-              colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
+              colors: [Color(0xFFA855F7), Color.fromARGB(255, 214, 14, 114)],
             ),
           ),
         ),
@@ -774,7 +769,7 @@ class GuideScreen extends StatelessWidget {
             strokeWidth: 3,
             curve: Easing.legacy,
             gradient: LinearGradient(
-              colors: [Color(0xFFA855F7), Color(0xFFF43F5E)],
+              colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
             ),
           ),
         ),
@@ -784,8 +779,9 @@ class GuideScreen extends StatelessWidget {
             size: 65,
             arrowCount: 1,
             strokeWidth: 6,
+            curve: Curves.easeInOut,
             gradient: LinearGradient(
-              colors: [Color(0xFFFB923C), Color(0xFFF43F5E)],
+              colors: [Color.fromARGB(255, 247, 202, 54), Color(0xFFF43F5E)],
             ),
           ),
         ),

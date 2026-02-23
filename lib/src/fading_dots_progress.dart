@@ -19,7 +19,10 @@ class FadingDotsProgressIndicator extends StatefulWidget {
     this.duration = const Duration(milliseconds: 1200),
     this.dotSize,
     this.radius,
+    this.curve = Curves.linear,
   });
+
+  final Curve curve;
 
   @override
   State<FadingDotsProgressIndicator> createState() =>
@@ -58,9 +61,12 @@ class _FadingDotsProgressIndicatorState
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
             return CustomPaint(
               painter: _FadingDotsPainter(
-                animation: _controller.value,
+                animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
                 dotCount: widget.dotCount,

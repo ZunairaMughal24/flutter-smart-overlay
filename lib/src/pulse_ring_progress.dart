@@ -19,7 +19,10 @@ class PulseRingProgressIndicator extends StatefulWidget {
     this.strokeWidth = 2.0,
     this.speed = const Duration(milliseconds: 2400),
     this.petalCount = 6,
+    this.curve = Curves.linear,
   });
+
+  final Curve curve;
 
   @override
   State<PulseRingProgressIndicator> createState() =>
@@ -57,9 +60,12 @@ class _PulseRingProgressIndicatorState extends State<PulseRingProgressIndicator>
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
             return CustomPaint(
               painter: _PulseRingPainter(
-                animation: _controller.value,
+                animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
                 ringCount: widget.ringCount,

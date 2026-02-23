@@ -15,7 +15,10 @@ class DoubleBounceProgressIndicator extends StatefulWidget {
     this.secondaryColor,
     this.gradient,
     this.speed = const Duration(milliseconds: 2000),
+    this.curve = Curves.linear,
   });
+
+  final Curve curve;
 
   @override
   State<DoubleBounceProgressIndicator> createState() =>
@@ -55,9 +58,12 @@ class _DoubleBounceProgressIndicatorState
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
             return CustomPaint(
               painter: _DoubleBouncePainter(
-                animation: _controller.value,
+                animation: animatedValue,
                 primaryColor: primary,
                 secondaryColor: secondary,
                 gradient: widget.gradient,

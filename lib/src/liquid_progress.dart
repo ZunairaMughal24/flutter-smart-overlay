@@ -19,7 +19,10 @@ class LiquidProgressIndicator extends StatefulWidget {
     this.gradient,
     this.waveAmplitude = 4.0,
     this.waveFrequency = 1.0,
+    this.curve = Curves.linear,
   });
+
+  final Curve curve;
 
   @override
   State<LiquidProgressIndicator> createState() =>
@@ -61,10 +64,13 @@ class _LiquidProgressIndicatorState extends State<LiquidProgressIndicator>
         child: AnimatedBuilder(
           animation: _controller,
           builder: (context, child) {
+            final double animatedValue = widget.curve.transform(
+              _controller.value,
+            );
             return CustomPaint(
               painter: _LiquidPainter(
                 value: widget.value,
-                animation: _controller.value,
+                animation: animatedValue,
                 color: indicatorColor,
                 backgroundColor: bgColor,
                 gradient: widget.gradient,

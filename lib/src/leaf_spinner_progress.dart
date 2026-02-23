@@ -24,7 +24,7 @@ class LeafSpinnerProgressIndicator extends StatefulWidget {
     this.leafCount = 12,
     this.strokeWidth = 2.0,
     this.speed = const Duration(milliseconds: 1200),
-    this.curve = Curves.easeInOutQuart,
+    this.curve = Curves.linear,
   });
 
   @override
