@@ -100,7 +100,6 @@ class _AuraPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Offset center = Offset(size.width / 2, size.height / 2);
     final double maxRadius = math.min(size.width, size.height) / 2;
-    final Rect rect = Rect.fromCircle(center: center, radius: maxRadius);
 
     if (showCenter) {
       final double pulse = 0.5 + 0.5 * math.sin(animation * 2 * math.pi);
