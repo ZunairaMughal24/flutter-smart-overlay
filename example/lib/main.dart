@@ -273,7 +273,7 @@ class GuideScreen extends StatelessWidget {
         Expanded(
           child: ActionCard(
             label: 'Liquid Overlay',
-            description: 'Water fill style',
+            description: 'Water fill',
             icon: Icons.water_drop_outlined,
             color: const Color(0xFF0EA5E9),
             onTap: () async {

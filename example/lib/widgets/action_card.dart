@@ -35,7 +35,7 @@ class ActionCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               label,
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
+              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 12),
               textAlign: TextAlign.center,
             ),
             Text(
