@@ -25,7 +25,7 @@ Add `smart_overlay` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  smart_overlay: ^0.2.0
+  smart_overlay: ^0.0.1
 ```
 
 ### 2. Basic Usage
@@ -72,7 +72,7 @@ SmartOverlay.show(
 );
 ```
 
-### 4. Custom Indicator Style
+### 5. Custom Indicator Style
 Switch to the new professional fading dots or use your own widget:
 
 ```dart
@@ -85,7 +85,7 @@ context.showLoader(
 );
 ```
 
-### 5. Direct Indicator Usage
+### 6. Direct Indicator Usage
 All indicators can be used as standalone widgets anywhere in your UI:
 
 ```dart

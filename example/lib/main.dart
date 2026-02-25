@@ -2,6 +2,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_overlay/smart_overlay.dart';
+import 'widgets/section_header.dart';
+import 'widgets/action_card.dart';
+import 'widgets/indicator_demo_card.dart';
+import 'widgets/customization_host.dart';
 
 void main() {
   runApp(const SmartOverlayGuide());
@@ -56,20 +60,20 @@ class GuideScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSectionHeader(
-                'Smart Overlay Logic',
-                'Managed full-screen load states',
+              const SectionHeader(
+                title: 'Smart Overlay Logic',
+                subtitle: 'Managed full-screen load states',
               ),
               const SizedBox(height: 12),
               _buildOverlayGrid(context),
 
               const SizedBox(height: 22),
-              _buildSectionHeader(
-                'Widget Injection',
-                'Inject indicators into any UI component',
+              const SectionHeader(
+                title: 'Widget Injection',
+                subtitle: 'Inject indicators into any UI component',
               ),
               const SizedBox(height: 12),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Fading Dots Indicator',
                 description: 'Opacity-modulated circular pulse',
                 indicator: FadingDotsProgressIndicator(
@@ -85,7 +89,7 @@ class GuideScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Scalloped Indicator',
                 description: 'Synchronized wave-path animation',
                 indicator: ScallopedProgressIndicator(
@@ -97,7 +101,7 @@ class GuideScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Liquid Indicator',
                 description: 'Fluid sine-wave filling animation',
                 indicator: LiquidProgressIndicator(
@@ -113,7 +117,7 @@ class GuideScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Ripple Bloom Indicator',
                 description: 'Expanding concentric ripple rings',
                 indicator: RippleBloomProgressIndicator(
@@ -124,7 +128,7 @@ class GuideScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Pulse Ring Indicator',
                 description: 'Strobed ring expansion with petals',
                 indicator: PulseRingProgressIndicator(
@@ -135,7 +139,7 @@ class GuideScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Chasing Dots Indicator',
                 description: 'Orbiting dots with motion trails',
                 indicator: ChasingDotsProgressIndicator(
@@ -146,7 +150,7 @@ class GuideScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Double Bounce Indicator',
                 description: 'Two circles breathing in opposite rhythm',
                 indicator: DoubleBounceProgressIndicator(
@@ -157,7 +161,7 @@ class GuideScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Classic Spinner',
                 description: 'Cascading radiating bars',
                 indicator: ClassicSpinnerProgressIndicator(
@@ -168,7 +172,7 @@ class GuideScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Leaf Spinner',
                 description: 'Organic petal-shaped rotation',
                 indicator: LeafSpinnerProgressIndicator(
@@ -179,7 +183,7 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const _IndicatorDemoCard(
+              const IndicatorDemoCard(
                 title: 'Chasing Arrows',
                 description: 'Solid rotating arrows in a sync pattern',
                 indicator: ChasingArrowsProgressIndicator(
@@ -192,9 +196,9 @@ class GuideScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 32),
-              _buildSectionHeader(
-                'Parameter Customization',
-                'Granular control over physics and aesthetics',
+              const SectionHeader(
+                title: 'Parameter Customization',
+                subtitle: 'Granular control over physics and aesthetics',
               ),
               const SizedBox(height: 16),
               _buildDotsCustomizationRow(),
@@ -226,35 +230,11 @@ class GuideScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader(String title, String subtitle) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: GoogleFonts.nunito(
-            fontSize: 19,
-            fontWeight: FontWeight.w900,
-            color: Colors.white,
-          ),
-        ),
-        Text(
-          subtitle,
-          style: GoogleFonts.nunito(
-            fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: const Color.fromARGB(255, 163, 179, 201),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildOverlayGrid(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: _ActionCard(
+          child: ActionCard(
             label: 'Scalloped Overlay',
             description: 'Manual hide',
             icon: Icons.lock_outline,
@@ -271,8 +251,8 @@ class GuideScreen extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: _ActionCard(
-            label: 'Dotted   Overlay',
+          child: ActionCard(
+            label: 'Dotted Overlay',
             description: 'Auto-dismiss',
             icon: Icons.timer_outlined,
             color: const Color(0xFF2DD4BF),
@@ -291,8 +271,8 @@ class GuideScreen extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: _ActionCard(
-            label: 'Liquid        Overlay',
+          child: ActionCard(
+            label: 'Liquid Overlay',
             description: 'Water fill style',
             icon: Icons.water_drop_outlined,
             color: const Color(0xFF0EA5E9),
@@ -320,8 +300,8 @@ class GuideScreen extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Expanded(
-          child: _ActionCard(
-            label: 'Ripple       Overlay',
+          child: ActionCard(
+            label: 'Ripple Overlay',
             description: 'Glass bloom',
             icon: Icons.blur_on_rounded,
             color: const Color(0xFFA855F7),
@@ -368,11 +348,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildDotsCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Wide Hero',
-          indicator: const FadingDotsProgressIndicator(
+          indicator: FadingDotsProgressIndicator(
             size: 65,
             dotCount: 14,
             radius: 28,
@@ -381,9 +361,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Compact',
-          indicator: const FadingDotsProgressIndicator(
+          indicator: FadingDotsProgressIndicator(
             size: 65,
             dotCount: 8,
             radius: 16,
@@ -393,9 +373,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Density',
-          indicator: const FadingDotsProgressIndicator(
+          indicator: FadingDotsProgressIndicator(
             size: 65,
             dotCount: 20,
             dotSize: 2,
@@ -410,11 +390,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildScallopedCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Standard',
-          indicator: const ScallopedProgressIndicator(
+          indicator: ScallopedProgressIndicator(
             size: 65,
             strokeWidth: 3,
             waveCount: 10,
@@ -423,9 +403,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Complexity',
-          indicator: const ScallopedProgressIndicator(
+          indicator: ScallopedProgressIndicator(
             size: 65,
             strokeWidth: 3,
             waveCount: 20,
@@ -438,9 +418,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Bold Stroke',
-          indicator: const ScallopedProgressIndicator(
+          indicator: ScallopedProgressIndicator(
             size: 65,
             strokeWidth: 5,
             waveCount: 6,
@@ -459,11 +439,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildLiquidCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Calm',
-          indicator: const LiquidProgressIndicator(
+          indicator: LiquidProgressIndicator(
             size: 60,
             waveAmplitude: 3,
             waveFrequency: 1,
@@ -476,9 +456,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Stormy',
-          indicator: const LiquidProgressIndicator(
+          indicator: LiquidProgressIndicator(
             size: 60,
             waveAmplitude: 6,
             waveFrequency: 2,
@@ -488,9 +468,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Progress',
-          indicator: const LiquidProgressIndicator(
+          indicator: LiquidProgressIndicator(
             size: 60,
             value: 0.6,
             waveAmplitude: 2,
@@ -506,11 +486,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildRippleBloomCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Gentle',
-          indicator: const RippleBloomProgressIndicator(
+          indicator: RippleBloomProgressIndicator(
             size: 65,
             rippleCount: 2,
             strokeWidth: 1.5,
@@ -519,9 +499,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Bloom',
-          indicator: const RippleBloomProgressIndicator(
+          indicator: RippleBloomProgressIndicator(
             size: 65,
             rippleCount: 4,
             strokeWidth: 2.5,
@@ -530,9 +510,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Pulse',
-          indicator: const RippleBloomProgressIndicator(
+          indicator: RippleBloomProgressIndicator(
             size: 65,
             rippleCount: 3,
             strokeWidth: 3,
@@ -547,11 +527,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildPulseRingCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Subtle',
-          indicator: const PulseRingProgressIndicator(
+          indicator: PulseRingProgressIndicator(
             size: 65,
             ringCount: 2,
             strokeWidth: 1.5,
@@ -561,9 +541,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Radiant',
-          indicator: const PulseRingProgressIndicator(
+          indicator: PulseRingProgressIndicator(
             size: 65,
             ringCount: 3,
             strokeWidth: 2.5,
@@ -573,9 +553,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Clean',
-          indicator: const PulseRingProgressIndicator(
+          indicator: PulseRingProgressIndicator(
             size: 65,
             ringCount: 4,
             strokeWidth: 2,
@@ -591,11 +571,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildChasingDotsCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Duo',
-          indicator: const ChasingDotsProgressIndicator(
+          indicator: ChasingDotsProgressIndicator(
             size: 65,
             dotCount: 2,
             dotSize: 5,
@@ -606,9 +586,9 @@ class GuideScreen extends StatelessWidget {
           ),
         ),
 
-        _HeroItem(
+        const HeroItem(
           label: 'Swarm',
-          indicator: const ChasingDotsProgressIndicator(
+          indicator: ChasingDotsProgressIndicator(
             size: 65,
             dotCount: 5,
             dotSize: 4,
@@ -618,9 +598,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Comet',
-          indicator: const ChasingDotsProgressIndicator(
+          indicator: ChasingDotsProgressIndicator(
             size: 65,
             dotCount: 1,
             dotSize: 6,
@@ -635,28 +615,28 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildDoubleBounceCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Classic',
-          indicator: const DoubleBounceProgressIndicator(
+          indicator: DoubleBounceProgressIndicator(
             size: 65,
             gradient: LinearGradient(
               colors: [Color(0xFF6366F1), Color(0xFF2DD4BF)],
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Contrast',
-          indicator: const DoubleBounceProgressIndicator(
+          indicator: DoubleBounceProgressIndicator(
             size: 65,
             color: Color(0xFFF43F5E),
             secondaryColor: Color(0xFF2DD4BF),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Neon',
-          indicator: const DoubleBounceProgressIndicator(
+          indicator: DoubleBounceProgressIndicator(
             size: 65,
             gradient: LinearGradient(
               colors: [Color(0xFFA855F7), Color(0xFFC084FC), Color(0xFF818CF8)],
@@ -668,11 +648,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildClassicSpinnerCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Standard',
-          indicator: const ClassicSpinnerProgressIndicator(
+          indicator: ClassicSpinnerProgressIndicator(
             size: 65,
             barCount: 12,
             gradient: LinearGradient(
@@ -680,9 +660,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Dense',
-          indicator: const ClassicSpinnerProgressIndicator(
+          indicator: ClassicSpinnerProgressIndicator(
             size: 65,
             barCount: 20,
             strokeWidth: 2,
@@ -691,9 +671,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Bold',
-          indicator: const ClassicSpinnerProgressIndicator(
+          indicator: ClassicSpinnerProgressIndicator(
             size: 65,
             barCount: 8,
             strokeWidth: 6,
@@ -707,11 +687,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildLeafSpinnerCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Standard',
-          indicator: const LeafSpinnerProgressIndicator(
+          indicator: LeafSpinnerProgressIndicator(
             size: 65,
             leafCount: 12,
             gradient: LinearGradient(
@@ -719,9 +699,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Petals',
-          indicator: const LeafSpinnerProgressIndicator(
+          indicator: LeafSpinnerProgressIndicator(
             size: 65,
             leafCount: 18,
             curve: Curves.easeInOut,
@@ -731,9 +711,9 @@ class GuideScreen extends StatelessWidget {
           ),
         ),
 
-        _HeroItem(
+        const HeroItem(
           label: 'Minimal',
-          indicator: const LeafSpinnerProgressIndicator(
+          indicator: LeafSpinnerProgressIndicator(
             size: 65,
             leafCount: 6,
             curve: Curves.linear,
@@ -747,11 +727,11 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildChasingArrowsCustomizationRow() {
-    return _CustomizationHost(
+    return CustomizationHost(
       children: [
-        _HeroItem(
+        const HeroItem(
           label: 'Sync',
-          indicator: const ChasingArrowsProgressIndicator(
+          indicator: ChasingArrowsProgressIndicator(
             size: 65,
             arrowCount: 2,
             strokeWidth: 4,
@@ -761,9 +741,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Triple',
-          indicator: const ChasingArrowsProgressIndicator(
+          indicator: ChasingArrowsProgressIndicator(
             size: 65,
             arrowCount: 3,
             strokeWidth: 3,
@@ -773,9 +753,9 @@ class GuideScreen extends StatelessWidget {
             ),
           ),
         ),
-        _HeroItem(
+        const HeroItem(
           label: 'Bold',
-          indicator: const ChasingArrowsProgressIndicator(
+          indicator: ChasingArrowsProgressIndicator(
             size: 65,
             arrowCount: 1,
             strokeWidth: 6,
@@ -783,170 +763,6 @@ class GuideScreen extends StatelessWidget {
             gradient: LinearGradient(
               colors: [Color.fromARGB(255, 247, 202, 54), Color(0xFFF43F5E)],
             ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _CustomizationHost extends StatelessWidget {
-  final List<Widget> children;
-  const _CustomizationHost({required this.children});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: children,
-      ),
-    );
-  }
-}
-
-class _ActionCard extends StatelessWidget {
-  final String label;
-  final String description;
-  final IconData icon;
-  final Color color;
-  final VoidCallback onTap;
-
-  const _ActionCard({
-    required this.label,
-    required this.description,
-    required this.icon,
-    required this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        height: 110,
-        decoration: BoxDecoration(
-          color: const Color(0xFF1E293B),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFF334155)),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: color, size: 24),
-            const SizedBox(height: 8),
-            Text(
-              label,
-              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              description,
-              style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _IndicatorDemoCard extends StatelessWidget {
-  final String title;
-  final String description;
-  final Widget indicator;
-
-  const _IndicatorDemoCard({
-    required this.title,
-    required this.description,
-    required this.indicator,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1E293B),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFF334155)),
-      ),
-      child: Row(
-        children: [
-          _IndicatorCircle(child: indicator),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 15,
-                  ),
-                ),
-                Text(
-                  description,
-                  style: const TextStyle(
-                    color: Color(0xFF94A3B8),
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _IndicatorCircle extends StatelessWidget {
-  final Widget child;
-  const _IndicatorCircle({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 60,
-      height: 60,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Color(0xFF0F172A),
-      ),
-      child: Center(child: child),
-    );
-  }
-}
-
-class _HeroItem extends StatelessWidget {
-  final String label;
-  final Widget indicator;
-
-  const _HeroItem({required this.label, required this.indicator});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        indicator,
-        const SizedBox(height: 8),
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w800,
-            color: Color.fromARGB(255, 111, 133, 162),
           ),
         ),
       ],
