@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'overlay_widget.dart';
 import 'smart_overlay.dart';
 
+/// Extensions on [BuildContext] for quick overlay management.
 extension SmartOverlayExtension on BuildContext {
+  /// Shows a loader overlay.
   void showLoader({
     String? message,
     OverlayOptions? options,

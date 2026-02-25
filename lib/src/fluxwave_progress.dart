@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A premium wavy progress indicator that animates a path between synchronized waves.
 class FluxWaveProgressIndicator extends StatefulWidget {
   final double? value;
   final double strokeWidth;

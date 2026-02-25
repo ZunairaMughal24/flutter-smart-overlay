@@ -4,6 +4,13 @@ version: 0.0.1
 homepage: https://github.com/ZunairaMughal24/flutter-smart-overlay
 repository: https://github.com/ZunairaMughal24/flutter-smart-overlay
 
+topics:
+  - overlay
+  - loader
+  - animation
+  - ui-component
+  - progress-indicator
+
 environment:
   sdk: ^3.8.1
   flutter: ">=1.17.0"

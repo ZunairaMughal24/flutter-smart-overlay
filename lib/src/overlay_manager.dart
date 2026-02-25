@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'overlay_widget.dart';
 
+/// A singleton manager that handles [OverlayEntry] insertion and removal.
 class SmartOverlayManager {
   static final SmartOverlayManager _instance = SmartOverlayManager._internal();
   factory SmartOverlayManager() => _instance;
@@ -10,6 +11,7 @@ class SmartOverlayManager {
   OverlayEntry? _entry;
   Timer? _timer;
 
+  /// Displays the overlay. Automatically hides any existing overlay first.
   void show({
     required BuildContext context,
     required SmartOverlayType type,
