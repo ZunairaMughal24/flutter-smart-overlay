@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class RippleBloomProgressIndicator extends StatefulWidget {
+class AuraProgressIndicator extends StatefulWidget {
   final double size;
   final Color? color;
   final Gradient? gradient;
@@ -10,7 +10,7 @@ class RippleBloomProgressIndicator extends StatefulWidget {
   final Duration speed;
   final bool showCenter;
 
-  const RippleBloomProgressIndicator({
+  const AuraProgressIndicator({
     super.key,
     this.size = 60.0,
     this.color,
@@ -25,12 +25,10 @@ class RippleBloomProgressIndicator extends StatefulWidget {
   final Curve curve;
 
   @override
-  State<RippleBloomProgressIndicator> createState() =>
-      _RippleBloomProgressIndicatorState();
+  State<AuraProgressIndicator> createState() => _AuraProgressIndicatorState();
 }
 
-class _RippleBloomProgressIndicatorState
-    extends State<RippleBloomProgressIndicator>
+class _AuraProgressIndicatorState extends State<AuraProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -65,7 +63,7 @@ class _RippleBloomProgressIndicatorState
               _controller.value,
             );
             return CustomPaint(
-              painter: _RippleBloomPainter(
+              painter: _AuraPainter(
                 animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
@@ -81,7 +79,7 @@ class _RippleBloomProgressIndicatorState
   }
 }
 
-class _RippleBloomPainter extends CustomPainter {
+class _AuraPainter extends CustomPainter {
   final double animation;
   final Color color;
   final Gradient? gradient;
@@ -89,7 +87,7 @@ class _RippleBloomPainter extends CustomPainter {
   final double strokeWidth;
   final bool showCenter;
 
-  _RippleBloomPainter({
+  _AuraPainter({
     required this.animation,
     required this.color,
     this.gradient,
@@ -104,7 +102,6 @@ class _RippleBloomPainter extends CustomPainter {
     final double maxRadius = math.min(size.width, size.height) / 2;
     final Rect rect = Rect.fromCircle(center: center, radius: maxRadius);
 
-    // --- Center bloom dot ---
     if (showCenter) {
       final double pulse = 0.5 + 0.5 * math.sin(animation * 2 * math.pi);
       final double dotRadius = maxRadius * 0.08 + maxRadius * 0.06 * pulse;
@@ -150,7 +147,7 @@ class _RippleBloomPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _RippleBloomPainter oldDelegate) {
+  bool shouldRepaint(covariant _AuraPainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.rippleCount != rippleCount ||

@@ -4,91 +4,85 @@ import 'package:smart_overlay/smart_overlay.dart';
 
 void main() {
   group('Progress Indicator Tests', () {
-    testWidgets('FadingDotsProgressIndicator renders correctly', (
+    testWidgets('LuminaProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: FadingDotsProgressIndicator())),
+        const MaterialApp(home: Scaffold(body: LuminaProgressIndicator())),
       );
-      expect(find.byType(FadingDotsProgressIndicator), findsOneWidget);
+      expect(find.byType(LuminaProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('LiquidProgressIndicator renders correctly', (
+    testWidgets('HydraProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: LiquidProgressIndicator())),
+        const MaterialApp(home: Scaffold(body: HydraProgressIndicator())),
       );
-      expect(find.byType(LiquidProgressIndicator), findsOneWidget);
+      expect(find.byType(HydraProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('RippleBloomProgressIndicator renders correctly', (
+    testWidgets('AuraProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: RippleBloomProgressIndicator())),
+        const MaterialApp(home: Scaffold(body: AuraProgressIndicator())),
       );
-      expect(find.byType(RippleBloomProgressIndicator), findsOneWidget);
+      expect(find.byType(AuraProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('PulseRingProgressIndicator renders correctly', (
+    testWidgets('NovaProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: PulseRingProgressIndicator())),
+        const MaterialApp(home: Scaffold(body: NovaProgressIndicator())),
       );
-      expect(find.byType(PulseRingProgressIndicator), findsOneWidget);
+      expect(find.byType(NovaProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('ChasingDotsProgressIndicator renders correctly', (
+    testWidgets('OrbitProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: ChasingDotsProgressIndicator())),
+        const MaterialApp(home: Scaffold(body: OrbitProgressIndicator())),
       );
-      expect(find.byType(ChasingDotsProgressIndicator), findsOneWidget);
+      expect(find.byType(OrbitProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('DoubleBounceProgressIndicator renders correctly', (
+    testWidgets('EclipseProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: DoubleBounceProgressIndicator()),
-        ),
+        const MaterialApp(home: Scaffold(body: EclipseProgressIndicator())),
       );
-      expect(find.byType(DoubleBounceProgressIndicator), findsOneWidget);
+      expect(find.byType(EclipseProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('ClassicSpinnerProgressIndicator renders correctly', (
+    testWidgets('NexusProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: ClassicSpinnerProgressIndicator()),
-        ),
+        const MaterialApp(home: Scaffold(body: NexusProgressIndicator())),
       );
-      expect(find.byType(ClassicSpinnerProgressIndicator), findsOneWidget);
+      expect(find.byType(NexusProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('LeafSpinnerProgressIndicator renders correctly', (
+    testWidgets('ZenithProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: LeafSpinnerProgressIndicator())),
+        const MaterialApp(home: Scaffold(body: ZenithProgressIndicator())),
       );
-      expect(find.byType(LeafSpinnerProgressIndicator), findsOneWidget);
+      expect(find.byType(ZenithProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('ChasingArrowsProgressIndicator renders correctly', (
+    testWidgets('VortexProgressIndicator renders correctly', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(body: ChasingArrowsProgressIndicator()),
-        ),
+        const MaterialApp(home: Scaffold(body: VortexProgressIndicator())),
       );
-      expect(find.byType(ChasingArrowsProgressIndicator), findsOneWidget);
+      expect(find.byType(VortexProgressIndicator), findsOneWidget);
     });
   });
 
@@ -101,8 +95,8 @@ void main() {
           home: Scaffold(
             body: Column(
               children: [
-                FadingDotsProgressIndicator(color: Colors.red),
-                ScallopedProgressIndicator(
+                LuminaProgressIndicator(color: Colors.red),
+                FluxWaveProgressIndicator(
                   gradient: LinearGradient(colors: [Colors.blue, Colors.green]),
                 ),
               ],
@@ -110,8 +104,8 @@ void main() {
           ),
         ),
       );
-      expect(find.byType(FadingDotsProgressIndicator), findsOneWidget);
-      expect(find.byType(ScallopedProgressIndicator), findsOneWidget);
+      expect(find.byType(LuminaProgressIndicator), findsOneWidget);
+      expect(find.byType(FluxWaveProgressIndicator), findsOneWidget);
     });
   });
 }

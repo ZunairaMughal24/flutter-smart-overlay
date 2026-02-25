@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class ScallopedProgressIndicator extends StatefulWidget {
+class FluxWaveProgressIndicator extends StatefulWidget {
   final double? value;
   final double strokeWidth;
   final Color? color;
@@ -10,7 +10,7 @@ class ScallopedProgressIndicator extends StatefulWidget {
   final double size;
   final Gradient? gradient;
 
-  const ScallopedProgressIndicator({
+  const FluxWaveProgressIndicator({
     super.key,
     this.value,
     this.strokeWidth = 1,
@@ -25,11 +25,11 @@ class ScallopedProgressIndicator extends StatefulWidget {
   final Curve curve;
 
   @override
-  State<ScallopedProgressIndicator> createState() =>
-      _ScallopedProgressIndicatorState();
+  State<FluxWaveProgressIndicator> createState() =>
+      _FluxWaveProgressIndicatorState();
 }
 
-class _ScallopedProgressIndicatorState extends State<ScallopedProgressIndicator>
+class _FluxWaveProgressIndicatorState extends State<FluxWaveProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -69,7 +69,7 @@ class _ScallopedProgressIndicatorState extends State<ScallopedProgressIndicator>
             width: widget.size,
             height: widget.size,
             child: CustomPaint(
-              painter: _ScallopedPainter(
+              painter: _FluxWavePainter(
                 value: widget.value,
                 rotation: animatedValue,
                 strokeWidth: widget.strokeWidth,
@@ -86,7 +86,7 @@ class _ScallopedProgressIndicatorState extends State<ScallopedProgressIndicator>
   }
 }
 
-class _ScallopedPainter extends CustomPainter {
+class _FluxWavePainter extends CustomPainter {
   final double? value;
   final double rotation;
   final double strokeWidth;
@@ -95,7 +95,7 @@ class _ScallopedPainter extends CustomPainter {
   final int waveCount;
   final Gradient? gradient;
 
-  _ScallopedPainter({
+  _FluxWavePainter({
     required this.value,
     required this.rotation,
     required this.strokeWidth,
@@ -215,7 +215,7 @@ class _ScallopedPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ScallopedPainter oldDelegate) {
+  bool shouldRepaint(covariant _FluxWavePainter oldDelegate) {
     return oldDelegate.value != value || oldDelegate.rotation != rotation;
   }
 }

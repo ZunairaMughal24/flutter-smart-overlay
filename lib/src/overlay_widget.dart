@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'scalloped_progress.dart';
+import 'fluxwave_progress.dart';
 
 enum SmartOverlayType { loader, custom }
 
@@ -90,7 +90,7 @@ class _SmartOverlayWidgetState extends State<SmartOverlayWidget>
       color:
           widget.options.backgroundColor ??
           (isLoader
-              ? Colors.black.withAlpha(200) // Darker background
+              ? Colors.black.withAlpha(200)
               : Colors.white.withAlpha(200)),
       child: Center(
         child: FadeTransition(
@@ -171,7 +171,7 @@ class _SmartOverlayWidgetState extends State<SmartOverlayWidget>
       mainAxisSize: MainAxisSize.min,
       children: [
         widget.options.indicator ??
-            ScallopedProgressIndicator(
+            FluxWaveProgressIndicator(
               color: widget.options.iconColor ?? Colors.white,
               size: 90,
               strokeWidth: 4,
@@ -203,7 +203,7 @@ class _SmartOverlayWidgetState extends State<SmartOverlayWidget>
     }
 
     return widget.options.indicator ??
-        ScallopedProgressIndicator(
+        FluxWaveProgressIndicator(
           color: widget.options.iconColor ?? Colors.blue,
           size: 50,
           strokeWidth: 2,

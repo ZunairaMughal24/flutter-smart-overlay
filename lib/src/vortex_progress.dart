@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class ChasingArrowsProgressIndicator extends StatefulWidget {
+class VortexProgressIndicator extends StatefulWidget {
   final double size;
 
   final Color? color;
@@ -16,7 +16,7 @@ class ChasingArrowsProgressIndicator extends StatefulWidget {
 
   final Curve curve;
 
-  const ChasingArrowsProgressIndicator({
+  const VortexProgressIndicator({
     super.key,
     this.size = 50.0,
     this.color,
@@ -28,12 +28,11 @@ class ChasingArrowsProgressIndicator extends StatefulWidget {
   });
 
   @override
-  State<ChasingArrowsProgressIndicator> createState() =>
-      _ChasingArrowsProgressIndicatorState();
+  State<VortexProgressIndicator> createState() =>
+      _VortexProgressIndicatorState();
 }
 
-class _ChasingArrowsProgressIndicatorState
-    extends State<ChasingArrowsProgressIndicator>
+class _VortexProgressIndicatorState extends State<VortexProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -69,7 +68,7 @@ class _ChasingArrowsProgressIndicatorState
             );
 
             return CustomPaint(
-              painter: _ChasingArrowsPainter(
+              painter: _VortexPainter(
                 animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
@@ -84,14 +83,14 @@ class _ChasingArrowsProgressIndicatorState
   }
 }
 
-class _ChasingArrowsPainter extends CustomPainter {
+class _VortexPainter extends CustomPainter {
   final double animation;
   final Color color;
   final Gradient? gradient;
   final int arrowCount;
   final double strokeWidth;
 
-  _ChasingArrowsPainter({
+  _VortexPainter({
     required this.animation,
     required this.color,
     this.gradient,
@@ -172,7 +171,7 @@ class _ChasingArrowsPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ChasingArrowsPainter oldDelegate) {
+  bool shouldRepaint(covariant _VortexPainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.arrowCount != arrowCount ||

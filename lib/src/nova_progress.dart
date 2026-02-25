@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class PulseRingProgressIndicator extends StatefulWidget {
+class NovaProgressIndicator extends StatefulWidget {
   final double size;
   final Color? color;
   final Gradient? gradient;
@@ -10,7 +10,7 @@ class PulseRingProgressIndicator extends StatefulWidget {
   final Duration speed;
   final int petalCount;
 
-  const PulseRingProgressIndicator({
+  const NovaProgressIndicator({
     super.key,
     this.size = 60.0,
     this.color,
@@ -25,11 +25,10 @@ class PulseRingProgressIndicator extends StatefulWidget {
   final Curve curve;
 
   @override
-  State<PulseRingProgressIndicator> createState() =>
-      _PulseRingProgressIndicatorState();
+  State<NovaProgressIndicator> createState() => _NovaProgressIndicatorState();
 }
 
-class _PulseRingProgressIndicatorState extends State<PulseRingProgressIndicator>
+class _NovaProgressIndicatorState extends State<NovaProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -64,7 +63,7 @@ class _PulseRingProgressIndicatorState extends State<PulseRingProgressIndicator>
               _controller.value,
             );
             return CustomPaint(
-              painter: _PulseRingPainter(
+              painter: _NovaPainter(
                 animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
@@ -80,7 +79,7 @@ class _PulseRingProgressIndicatorState extends State<PulseRingProgressIndicator>
   }
 }
 
-class _PulseRingPainter extends CustomPainter {
+class _NovaPainter extends CustomPainter {
   final double animation;
   final Color color;
   final Gradient? gradient;
@@ -88,7 +87,7 @@ class _PulseRingPainter extends CustomPainter {
   final double strokeWidth;
   final int petalCount;
 
-  _PulseRingPainter({
+  _NovaPainter({
     required this.animation,
     required this.color,
     this.gradient,
@@ -188,7 +187,7 @@ class _PulseRingPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _PulseRingPainter oldDelegate) {
+  bool shouldRepaint(covariant _NovaPainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.ringCount != ringCount ||

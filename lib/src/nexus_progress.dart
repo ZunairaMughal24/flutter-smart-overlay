@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class ClassicSpinnerProgressIndicator extends StatefulWidget {
+class NexusProgressIndicator extends StatefulWidget {
   final double size;
   final Color? color;
   final Gradient? gradient;
@@ -9,7 +9,7 @@ class ClassicSpinnerProgressIndicator extends StatefulWidget {
   final double strokeWidth;
   final Duration speed;
 
-  const ClassicSpinnerProgressIndicator({
+  const NexusProgressIndicator({
     super.key,
     this.size = 50.0,
     this.color,
@@ -23,12 +23,10 @@ class ClassicSpinnerProgressIndicator extends StatefulWidget {
   final Curve curve;
 
   @override
-  State<ClassicSpinnerProgressIndicator> createState() =>
-      _ClassicSpinnerProgressIndicatorState();
+  State<NexusProgressIndicator> createState() => _NexusProgressIndicatorState();
 }
 
-class _ClassicSpinnerProgressIndicatorState
-    extends State<ClassicSpinnerProgressIndicator>
+class _NexusProgressIndicatorState extends State<NexusProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -63,7 +61,7 @@ class _ClassicSpinnerProgressIndicatorState
               _controller.value,
             );
             return CustomPaint(
-              painter: _ClassicSpinnerPainter(
+              painter: _NexusPainter(
                 animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
@@ -78,14 +76,14 @@ class _ClassicSpinnerProgressIndicatorState
   }
 }
 
-class _ClassicSpinnerPainter extends CustomPainter {
+class _NexusPainter extends CustomPainter {
   final double animation;
   final Color color;
   final Gradient? gradient;
   final int barCount;
   final double strokeWidth;
 
-  _ClassicSpinnerPainter({
+  _NexusPainter({
     required this.animation,
     required this.color,
     this.gradient,
@@ -133,7 +131,7 @@ class _ClassicSpinnerPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ClassicSpinnerPainter oldDelegate) {
+  bool shouldRepaint(covariant _NexusPainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.barCount != barCount ||

@@ -18,7 +18,7 @@ void main() {
       ]);
     });
 
-    testWidgets('SmartOverlayWidget should render scalloped loader', (
+    testWidgets('SmartOverlayWidget should render flux loader', (
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(
@@ -32,7 +32,7 @@ void main() {
         ),
       );
 
-      expect(find.byType(ScallopedProgressIndicator), findsOneWidget);
+      expect(find.byType(FluxWaveProgressIndicator), findsOneWidget);
       expect(find.text('Loading...'), findsOneWidget);
     });
   });

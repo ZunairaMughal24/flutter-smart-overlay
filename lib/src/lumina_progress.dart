@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class FadingDotsProgressIndicator extends StatefulWidget {
+class LuminaProgressIndicator extends StatefulWidget {
   final double size;
   final Color? color;
   final Gradient? gradient;
@@ -10,7 +10,7 @@ class FadingDotsProgressIndicator extends StatefulWidget {
   final double? dotSize;
   final double? radius;
 
-  const FadingDotsProgressIndicator({
+  const LuminaProgressIndicator({
     super.key,
     this.size = 60.0,
     this.color,
@@ -25,12 +25,11 @@ class FadingDotsProgressIndicator extends StatefulWidget {
   final Curve curve;
 
   @override
-  State<FadingDotsProgressIndicator> createState() =>
-      _FadingDotsProgressIndicatorState();
+  State<LuminaProgressIndicator> createState() =>
+      _LuminaProgressIndicatorState();
 }
 
-class _FadingDotsProgressIndicatorState
-    extends State<FadingDotsProgressIndicator>
+class _LuminaProgressIndicatorState extends State<LuminaProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -65,7 +64,7 @@ class _FadingDotsProgressIndicatorState
               _controller.value,
             );
             return CustomPaint(
-              painter: _FadingDotsPainter(
+              painter: _LuminaPainter(
                 animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
@@ -81,7 +80,7 @@ class _FadingDotsProgressIndicatorState
   }
 }
 
-class _FadingDotsPainter extends CustomPainter {
+class _LuminaPainter extends CustomPainter {
   final double animation;
   final Color color;
   final Gradient? gradient;
@@ -89,7 +88,7 @@ class _FadingDotsPainter extends CustomPainter {
   final double? dotSize;
   final double? radius;
 
-  _FadingDotsPainter({
+  _LuminaPainter({
     required this.animation,
     required this.color,
     this.gradient,
@@ -135,7 +134,7 @@ class _FadingDotsPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _FadingDotsPainter oldDelegate) {
+  bool shouldRepaint(covariant _LuminaPainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.gradient != gradient ||

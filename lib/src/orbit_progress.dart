@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class ChasingDotsProgressIndicator extends StatefulWidget {
+class OrbitProgressIndicator extends StatefulWidget {
   final double size;
   final Color? color;
   final Color? secondaryColor;
@@ -18,7 +18,7 @@ class ChasingDotsProgressIndicator extends StatefulWidget {
 
   final Curve curve;
 
-  const ChasingDotsProgressIndicator({
+  const OrbitProgressIndicator({
     super.key,
     this.size = 60.0,
     this.color,
@@ -34,12 +34,10 @@ class ChasingDotsProgressIndicator extends StatefulWidget {
   });
 
   @override
-  State<ChasingDotsProgressIndicator> createState() =>
-      _ChasingDotsProgressIndicatorState();
+  State<OrbitProgressIndicator> createState() => _OrbitProgressIndicatorState();
 }
 
-class _ChasingDotsProgressIndicatorState
-    extends State<ChasingDotsProgressIndicator>
+class _OrbitProgressIndicatorState extends State<OrbitProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -77,7 +75,7 @@ class _ChasingDotsProgressIndicatorState
             );
 
             return CustomPaint(
-              painter: _ChasingDotsPainter(
+              painter: _OrbitPainter(
                 animation: animatedValue,
                 color: baseColor,
                 trailColor: trailColor,
@@ -96,7 +94,7 @@ class _ChasingDotsProgressIndicatorState
   }
 }
 
-class _ChasingDotsPainter extends CustomPainter {
+class _OrbitPainter extends CustomPainter {
   final double animation;
   final Color color;
   final Color trailColor;
@@ -107,7 +105,7 @@ class _ChasingDotsPainter extends CustomPainter {
   final int sparkleCount;
   final Color? sparkleColor;
 
-  _ChasingDotsPainter({
+  _OrbitPainter({
     required this.animation,
     required this.color,
     required this.trailColor,
@@ -273,7 +271,7 @@ class _ChasingDotsPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ChasingDotsPainter oldDelegate) {
+  bool shouldRepaint(covariant _OrbitPainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.dotCount != dotCount ||

@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class LeafSpinnerProgressIndicator extends StatefulWidget {
+class ZenithProgressIndicator extends StatefulWidget {
   final double size;
 
   final Color? color;
@@ -16,7 +16,7 @@ class LeafSpinnerProgressIndicator extends StatefulWidget {
 
   final Curve curve;
 
-  const LeafSpinnerProgressIndicator({
+  const ZenithProgressIndicator({
     super.key,
     this.size = 50.0,
     this.color,
@@ -28,12 +28,11 @@ class LeafSpinnerProgressIndicator extends StatefulWidget {
   });
 
   @override
-  State<LeafSpinnerProgressIndicator> createState() =>
-      _LeafSpinnerProgressIndicatorState();
+  State<ZenithProgressIndicator> createState() =>
+      _ZenithProgressIndicatorState();
 }
 
-class _LeafSpinnerProgressIndicatorState
-    extends State<LeafSpinnerProgressIndicator>
+class _ZenithProgressIndicatorState extends State<ZenithProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -69,7 +68,7 @@ class _LeafSpinnerProgressIndicatorState
             );
 
             return CustomPaint(
-              painter: _LeafSpinnerPainter(
+              painter: _ZenithPainter(
                 animation: animatedValue,
                 color: baseColor,
                 gradient: widget.gradient,
@@ -84,14 +83,14 @@ class _LeafSpinnerProgressIndicatorState
   }
 }
 
-class _LeafSpinnerPainter extends CustomPainter {
+class _ZenithPainter extends CustomPainter {
   final double animation;
   final Color color;
   final Gradient? gradient;
   final int leafCount;
   final double strokeWidth;
 
-  _LeafSpinnerPainter({
+  _ZenithPainter({
     required this.animation,
     required this.color,
     this.gradient,
@@ -156,7 +155,7 @@ class _LeafSpinnerPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _LeafSpinnerPainter oldDelegate) {
+  bool shouldRepaint(covariant _ZenithPainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.color != color ||
         oldDelegate.leafCount != leafCount ||

@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class LiquidProgressIndicator extends StatefulWidget {
+class HydraProgressIndicator extends StatefulWidget {
   final double? value;
   final double size;
   final Color? color;
@@ -10,7 +10,7 @@ class LiquidProgressIndicator extends StatefulWidget {
   final double waveAmplitude;
   final double waveFrequency;
 
-  const LiquidProgressIndicator({
+  const HydraProgressIndicator({
     super.key,
     this.value,
     this.size = 60.0,
@@ -25,11 +25,10 @@ class LiquidProgressIndicator extends StatefulWidget {
   final Curve curve;
 
   @override
-  State<LiquidProgressIndicator> createState() =>
-      _LiquidProgressIndicatorState();
+  State<HydraProgressIndicator> createState() => _HydraProgressIndicatorState();
 }
 
-class _LiquidProgressIndicatorState extends State<LiquidProgressIndicator>
+class _HydraProgressIndicatorState extends State<HydraProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -68,7 +67,7 @@ class _LiquidProgressIndicatorState extends State<LiquidProgressIndicator>
               _controller.value,
             );
             return CustomPaint(
-              painter: _LiquidPainter(
+              painter: _HydraPainter(
                 value: widget.value,
                 animation: animatedValue,
                 color: indicatorColor,
@@ -85,7 +84,7 @@ class _LiquidProgressIndicatorState extends State<LiquidProgressIndicator>
   }
 }
 
-class _LiquidPainter extends CustomPainter {
+class _HydraPainter extends CustomPainter {
   final double? value;
   final double animation;
   final Color color;
@@ -94,7 +93,7 @@ class _LiquidPainter extends CustomPainter {
   final double waveAmplitude;
   final double waveFrequency;
 
-  _LiquidPainter({
+  _HydraPainter({
     required this.value,
     required this.animation,
     required this.color,
@@ -155,7 +154,7 @@ class _LiquidPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _LiquidPainter oldDelegate) {
+  bool shouldRepaint(covariant _HydraPainter oldDelegate) {
     return oldDelegate.value != value ||
         oldDelegate.animation != animation ||
         oldDelegate.color != color ||

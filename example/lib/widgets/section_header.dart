@@ -16,7 +16,7 @@ class SectionHeader extends StatelessWidget {
           title,
           style: GoogleFonts.nunito(
             fontSize: 19,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
         ),

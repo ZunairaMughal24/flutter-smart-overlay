@@ -1,14 +1,14 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
-class DoubleBounceProgressIndicator extends StatefulWidget {
+class EclipseProgressIndicator extends StatefulWidget {
   final double size;
   final Color? color;
   final Color? secondaryColor;
   final Gradient? gradient;
   final Duration speed;
 
-  const DoubleBounceProgressIndicator({
+  const EclipseProgressIndicator({
     super.key,
     this.size = 60.0,
     this.color,
@@ -21,12 +21,11 @@ class DoubleBounceProgressIndicator extends StatefulWidget {
   final Curve curve;
 
   @override
-  State<DoubleBounceProgressIndicator> createState() =>
-      _DoubleBounceProgressIndicatorState();
+  State<EclipseProgressIndicator> createState() =>
+      _EclipseProgressIndicatorState();
 }
 
-class _DoubleBounceProgressIndicatorState
-    extends State<DoubleBounceProgressIndicator>
+class _EclipseProgressIndicatorState extends State<EclipseProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
@@ -62,7 +61,7 @@ class _DoubleBounceProgressIndicatorState
               _controller.value,
             );
             return CustomPaint(
-              painter: _DoubleBouncePainter(
+              painter: _EclipsePainter(
                 animation: animatedValue,
                 primaryColor: primary,
                 secondaryColor: secondary,
@@ -76,13 +75,13 @@ class _DoubleBounceProgressIndicatorState
   }
 }
 
-class _DoubleBouncePainter extends CustomPainter {
+class _EclipsePainter extends CustomPainter {
   final double animation;
   final Color primaryColor;
   final Color secondaryColor;
   final Gradient? gradient;
 
-  _DoubleBouncePainter({
+  _EclipsePainter({
     required this.animation,
     required this.primaryColor,
     required this.secondaryColor,
@@ -126,7 +125,7 @@ class _DoubleBouncePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _DoubleBouncePainter oldDelegate) {
+  bool shouldRepaint(covariant _EclipsePainter oldDelegate) {
     return oldDelegate.animation != animation ||
         oldDelegate.primaryColor != primaryColor ||
         oldDelegate.secondaryColor != secondaryColor;

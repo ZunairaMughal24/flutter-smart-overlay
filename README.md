@@ -1,12 +1,12 @@
 # smart_overlay 🌊
 
-A **premium, lightweight loading overlay manager** for Flutter. Featuring the unique **Scalloped (Wavy) Progress Indicator** with full gradient support.
+A **premium, lightweight loading overlay manager** for Flutter. Featuring the unique **FluxWave (Wavy) Progress Indicator** with full gradient support.
 
 ---
 
 ## ✨ Features
 
-- **Multiple Styles**: Choose between the unique `ScallopedProgressIndicator` or the professional `FadingDotsProgressIndicator`.
+- **Multiple Styles**: Choose between the unique `FluxWaveProgressIndicator` or the professional `LuminaProgressIndicator`.
 - **Custom Indicators**: Inject any custom widget as your progress indicator.
 - **Built-in Accessibility**: All loaders come with `Semantics` support out of the box.
 - **Gradients Galore**: Apply beautiful gradients to your loaders for a high-end feel.
@@ -78,7 +78,7 @@ Switch to the new professional fading dots or use your own widget:
 ```dart
 context.showLoader(
   message: "Premium experience...",
-  indicator: FadingDotsProgressIndicator(
+  indicator: LuminaProgressIndicator(
     size: 80,
     color: Colors.white,
   ),
@@ -89,8 +89,8 @@ context.showLoader(
 All indicators can be used as standalone widgets anywhere in your UI:
 
 ```dart
-// Standalone Fading Dots
-FadingDotsProgressIndicator(
+// Standalone Lumina Dots
+LuminaProgressIndicator(
   size: 60,
   gradient: SweepGradient(
     colors: [Colors.blue, Colors.cyan],
@@ -108,7 +108,7 @@ FadingDotsProgressIndicator(
 | `textColor` | Color of the message text | `Colors.white` |
 | `useBlur` | Enable background glassmorphism blur | `false` |
 | `gradient` | Apply a gradient to the progress indicator | `null` |
-| `indicator` | Inject a custom indicator widget | `ScallopedProgressIndicator` |
+| `indicator` | Inject a custom indicator widget | `FluxWaveProgressIndicator` |
 | `message` | Optional text to display below the loader | `null` |
 | `messageWidget` | Inject a custom widget as the message | `null` |
 | `autoDismissDuration` | If set, the overlay hides automatically | `null` (sticky) |
