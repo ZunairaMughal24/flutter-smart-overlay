@@ -1,5 +1,9 @@
 # smart_overlay 🌊
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ZunairaMughal24/flutter-smart-overlay/main/assets/Indicator%20Demo%20Gif.gif" width="100%" alt="Smart Overlay Premium Demo">
+</p>
+
 A **premium, lightweight loading overlay manager** for Flutter. Featuring the unique **FluxWave (Wavy) Progress Indicator** with full gradient support.
 
 ---
