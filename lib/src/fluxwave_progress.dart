@@ -3,13 +3,36 @@ import 'package:flutter/material.dart';
 
 /// A premium wavy progress indicator that animates a path between synchronized waves.
 class FluxWaveProgressIndicator extends StatefulWidget {
+  /// The determinate progress from `0.0` to `1.0`. If `null`, the indicator
+  /// sweeps indeterminately instead of tracking a fixed value.
   final double? value;
+
   final double strokeWidth;
+
+  /// The color of the wave stroke. Defaults to the theme's primary color.
   final Color? color;
+
+  /// The color of the static background track. Defaults to [color] at low
+  /// opacity.
   final Color? backgroundColor;
+
+  /// The number of scallops (waves) around the ring.
   final int waveCount;
+
+  /// The width and height of the indicator's bounding box.
   final double size;
+
+  /// An optional gradient applied to the progress stroke, overriding
+  /// [color] as a flat stroke.
   final Gradient? gradient;
+
+  /// How long it takes for the wave pattern to complete one full rotation.
+  final Duration speed;
+
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
 
   const FluxWaveProgressIndicator({
     super.key,
@@ -20,6 +43,8 @@ class FluxWaveProgressIndicator extends StatefulWidget {
     this.waveCount = 8,
     this.size = 48.0,
     this.gradient,
+    this.speed = const Duration(seconds: 3),
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -37,10 +62,21 @@ class _FluxWaveProgressIndicatorState extends State<FluxWaveProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant FluxWaveProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override
@@ -145,7 +181,7 @@ class _FluxWavePainter extends CustomPainter {
         progressPaint,
       );
     } else {
-      final start = (rotation * 1.5) % 1.0;
+      final start = (rotation * 2.0) % 1.0;
       final sweep = 0.2 + (math.sin(rotation * math.pi) * 0.1).abs();
       _drawPartialPath(canvas, path, start, sweep, progressPaint);
     }

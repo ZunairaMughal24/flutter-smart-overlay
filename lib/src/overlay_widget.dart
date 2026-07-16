@@ -1,24 +1,68 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'fluxwave_progress.dart';
 
-enum SmartOverlayType { loader, custom }
+/// The visual layout an overlay is rendered with.
+enum SmartOverlayType {
+  /// A full-screen, centered loading indicator with an optional message.
+  loader,
 
+  /// A compact, card-style toast with an icon (or indicator) beside a
+  /// message.
+  custom,
+}
+
+/// Configuration for a single [SmartOverlayWidget] instance, controlling
+/// its colors, content, and behavior.
 class OverlayOptions {
+  /// The background scrim color behind the overlay content. Defaults to
+  /// a semi-transparent black (for [SmartOverlayType.loader]) or white
+  /// (for [SmartOverlayType.custom]).
   final Color? backgroundColor;
+
+  /// The background color of the card used by [SmartOverlayType.custom].
+  /// Defaults to white.
   final Color? boxColor;
+
+  /// The color of the [message] text. Defaults to white for the loader
+  /// style and black87 for the custom card style.
   final Color? textColor;
+
+  /// The color of the default indicator's icon/stroke when no [indicator]
+  /// is supplied.
   final Color? iconColor;
+
+  /// A simple text message shown alongside the indicator. Ignored if
+  /// [messageWidget] is supplied.
   final String? message;
+
+  /// A custom widget shown in place of the default indicator for
+  /// [SmartOverlayType.custom] overlays.
   final Widget? customWidget;
+
+  /// If set, the overlay automatically hides itself after this duration.
+  /// If `null`, the overlay stays visible until [SmartOverlayManager.hide]
+  /// is called.
   final Duration? autoDismissDuration;
+
+  /// The number of waves rendered by the default [FluxWaveProgressIndicator]
+  /// when no [indicator] is supplied.
   final int? waveCount;
+
+  /// An optional gradient applied to the default indicator.
   final Gradient? gradient;
+
+  /// Whether to apply a background blur (glassmorphism) behind
+  /// [SmartOverlayType.loader] overlays.
   final bool useBlur;
+
+  /// A custom widget shown in place of the default progress indicator.
   final Widget? indicator;
+
+  /// A custom widget shown in place of the simple text [message].
   final Widget? messageWidget;
 
+  /// Creates an [OverlayOptions] configuration.
   const OverlayOptions({
     this.backgroundColor,
     this.boxColor,
@@ -35,10 +79,19 @@ class OverlayOptions {
   });
 }
 
+/// The widget inserted into the [Overlay] by [SmartOverlayManager] to
+/// render a loader or custom toast, based on [type] and [options].
+///
+/// This is typically not constructed directly; use [SmartOverlay.show] or
+/// the [BuildContext] extensions instead.
 class SmartOverlayWidget extends StatefulWidget {
+  /// The visual layout to render.
   final SmartOverlayType type;
+
+  /// The colors, content, and behavior configuration for this overlay.
   final OverlayOptions options;
 
+  /// Creates a [SmartOverlayWidget].
   const SmartOverlayWidget({
     super.key,
     required this.type,
@@ -133,13 +186,17 @@ class _SmartOverlayWidgetState extends State<SmartOverlayWidget>
                                 Text(
                                   widget.options.message!,
                                   textAlign: TextAlign.left,
-                                  style: GoogleFonts.nunito(
-                                    color:
-                                        widget.options.textColor ??
-                                        Colors.black87,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style:
+                                      (Theme.of(
+                                        context,
+                                      ).textTheme.titleMedium ??
+                                      const TextStyle()).copyWith(
+                                        color:
+                                            widget.options.textColor ??
+                                            Colors.black87,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                 ),
                           ),
                         ],
@@ -185,12 +242,13 @@ class _SmartOverlayWidgetState extends State<SmartOverlayWidget>
               Text(
                 widget.options.message!,
                 textAlign: TextAlign.center,
-                style: GoogleFonts.nunito(
-                  color: widget.options.textColor ?? Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.3,
-                ),
+                style: (Theme.of(context).textTheme.bodyLarge ?? const TextStyle())
+                    .copyWith(
+                      color: widget.options.textColor ?? Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.3,
+                    ),
               ),
         ],
       ],

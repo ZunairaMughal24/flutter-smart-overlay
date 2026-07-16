@@ -1,15 +1,39 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A progress indicator depicting a pulsing center dot with expanding
+/// rings, each briefly blooming into flower-like petals as it grows.
 class NovaProgressIndicator extends StatefulWidget {
+  /// The width and height of the indicator's bounding box.
   final double size;
+
+  /// The color of the center dot, rings, and petals. Defaults to the
+  /// theme's primary color.
   final Color? color;
+
+  /// An optional gradient applied to the rings and petals, overriding
+  /// [color] as a flat stroke.
   final Gradient? gradient;
+
+  /// The number of expanding rings animating outward at once.
   final int ringCount;
+
+  /// The stroke width of each ring, which thins as the ring expands.
   final double strokeWidth;
+
+  /// How long a single ring takes to travel from the center to the edge.
   final Duration speed;
+
+  /// The number of petal arcs drawn on each ring as it blooms. Set to `0`
+  /// to disable petals.
   final int petalCount;
 
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates a [NovaProgressIndicator].
   const NovaProgressIndicator({
     super.key,
     this.size = 60.0,
@@ -19,6 +43,7 @@ class NovaProgressIndicator extends StatefulWidget {
     this.strokeWidth = 2.0,
     this.speed = const Duration(milliseconds: 2400),
     this.petalCount = 6,
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -35,8 +60,21 @@ class _NovaProgressIndicatorState extends State<NovaProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.speed)
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant NovaProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override

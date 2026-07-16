@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Unreleased
+
+* **Animation Control**: Added `isAnimating` to every indicator — set it to `false` to freeze the indicator at its current frame from outside (e.g. once an async task completes), without unmounting the widget.
+* **Consistent Speed API**: `FluxWaveProgressIndicator` and `HydraProgressIndicator` now expose a `speed` parameter (previously hardcoded). `LuminaProgressIndicator`'s `duration` parameter is renamed to `speed` to match the other 8 indicators. **Breaking:** update any `LuminaProgressIndicator(duration: ...)` usage to `speed: ...`.
+* **No more forced font**: Removed the `google_fonts` dependency. Overlay message text now inherits `Theme.of(context).textTheme` instead of a hardcoded font, so it matches your app's existing typography.
+* **Documentation**: Added dartdoc comments to all public indicator classes and fields.
+
 ## 0.0.1
 
 * Initial release of `smart_overlay`.

@@ -1,15 +1,39 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A progress indicator that emits pulsing concentric ripples from a
+/// central dot, similar to a sonar or radar sweep.
 class AuraProgressIndicator extends StatefulWidget {
+  /// The width and height of the indicator's bounding box.
   final double size;
+
+  /// The color of the ripples and center dot. Defaults to the theme's
+  /// primary color.
   final Color? color;
+
+  /// An optional gradient applied to the ripples and center dot, overriding
+  /// [color] as a flat fill.
   final Gradient? gradient;
+
+  /// The number of ripples animating outward at once.
   final int rippleCount;
+
+  /// Reserved for future stroke-based rendering; currently unused since
+  /// ripples are filled rather than stroked.
   final double strokeWidth;
+
+  /// How long a single ripple takes to travel from the center to the edge.
   final Duration speed;
+
+  /// Whether to render the pulsing dot at the center of the indicator.
   final bool showCenter;
 
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates an [AuraProgressIndicator].
   const AuraProgressIndicator({
     super.key,
     this.size = 60.0,
@@ -19,6 +43,7 @@ class AuraProgressIndicator extends StatefulWidget {
     this.strokeWidth = 2.0,
     this.speed = const Duration(milliseconds: 2400),
     this.showCenter = true,
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -35,8 +60,21 @@ class _AuraProgressIndicatorState extends State<AuraProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.speed)
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant AuraProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override

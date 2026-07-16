@@ -1,13 +1,33 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A progress indicator depicting two overlapping circles that grow and
+/// shrink out of phase, evoking a solar eclipse.
 class EclipseProgressIndicator extends StatefulWidget {
+  /// The width and height of the indicator's bounding box.
   final double size;
+
+  /// The color of the primary (foreground) circle. Defaults to the theme's
+  /// primary color.
   final Color? color;
+
+  /// The color of the secondary (background) circle. Defaults to [color]
+  /// at reduced opacity.
   final Color? secondaryColor;
+
+  /// An optional gradient applied to both circles, overriding [color] and
+  /// [secondaryColor] as flat fills.
   final Gradient? gradient;
+
+  /// How long a full grow/shrink cycle takes.
   final Duration speed;
 
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates an [EclipseProgressIndicator].
   const EclipseProgressIndicator({
     super.key,
     this.size = 60.0,
@@ -15,6 +35,7 @@ class EclipseProgressIndicator extends StatefulWidget {
     this.secondaryColor,
     this.gradient,
     this.speed = const Duration(milliseconds: 2000),
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -32,8 +53,21 @@ class _EclipseProgressIndicatorState extends State<EclipseProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.speed)
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant EclipseProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override

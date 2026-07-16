@@ -1,24 +1,49 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A progress indicator made of dots arranged in a circle that fade and
+/// scale in sequence, chasing around the ring.
 class LuminaProgressIndicator extends StatefulWidget {
+  /// The width and height of the indicator's bounding box.
   final double size;
+
+  /// The color of the dots. Defaults to the theme's primary color.
   final Color? color;
+
+  /// An optional gradient applied to each dot, overriding [color] as a
+  /// flat fill.
   final Gradient? gradient;
+
+  /// The number of dots arranged around the ring.
   final int dotCount;
-  final Duration duration;
+
+  /// How long it takes for the fade/scale effect to travel once around
+  /// all dots.
+  final Duration speed;
+
+  /// The radius of each dot. Defaults to a size proportional to [size].
   final double? dotSize;
+
+  /// The radius of the circle the dots are arranged on. Defaults to a
+  /// size proportional to [size].
   final double? radius;
 
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates a [LuminaProgressIndicator].
   const LuminaProgressIndicator({
     super.key,
     this.size = 60.0,
     this.color,
     this.gradient,
     this.dotCount = 10,
-    this.duration = const Duration(milliseconds: 1200),
+    this.speed = const Duration(milliseconds: 1200),
     this.dotSize,
     this.radius,
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -36,8 +61,21 @@ class _LuminaProgressIndicatorState extends State<LuminaProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.duration)
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant LuminaProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override

@@ -11,6 +11,10 @@ topics:
   - ui-component
   - progress-indicator
 
+screenshots:
+  - description: 'The FluxWave progress indicator with gradient, glassmorphism blur, and message styling.'
+    path: 'assets/Indicator Demo Gif.gif'
+
 environment:
   sdk: ^3.8.1
   flutter: ">=1.17.0"
@@ -18,7 +22,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:

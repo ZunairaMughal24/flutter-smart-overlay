@@ -1,15 +1,44 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A liquid-fill progress indicator: a circular container with an animated
+/// wavy surface, like a water level rising and falling inside a glass.
 class HydraProgressIndicator extends StatefulWidget {
+  /// The fill level from `0.0` (empty) to `1.0` (full). If `null`, the
+  /// indicator renders at a fixed half-full level to suggest indeterminate
+  /// progress.
   final double? value;
+
+  /// The width and height of the indicator's bounding box.
   final double size;
+
+  /// The color of the liquid fill. Defaults to the theme's primary color.
   final Color? color;
+
+  /// The color of the empty (unfilled) portion of the circle. Defaults to
+  /// [color] at low opacity.
   final Color? backgroundColor;
+
+  /// An optional gradient applied to the liquid fill, overriding [color]
+  /// as a flat fill.
   final Gradient? gradient;
+
+  /// The height, in logical pixels, of the animated wave crests.
   final double waveAmplitude;
+
+  /// The number of wave crests visible across the width of the indicator.
   final double waveFrequency;
 
+  /// How long it takes for the wave surface to complete one animation
+  /// cycle.
+  final Duration speed;
+
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates a [HydraProgressIndicator].
   const HydraProgressIndicator({
     super.key,
     this.value,
@@ -19,6 +48,8 @@ class HydraProgressIndicator extends StatefulWidget {
     this.gradient,
     this.waveAmplitude = 4.0,
     this.waveFrequency = 1.0,
+    this.speed = const Duration(seconds: 2),
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -35,10 +66,21 @@ class _HydraProgressIndicatorState extends State<HydraProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    )..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant HydraProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override

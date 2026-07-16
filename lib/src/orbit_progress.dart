@@ -1,23 +1,51 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A progress indicator depicting one or more dots orbiting a central
+/// track, each trailing a fading comet-like tail (or optional sparkles).
 class OrbitProgressIndicator extends StatefulWidget {
+  /// The width and height of the indicator's bounding box.
   final double size;
+
+  /// The color of the orbiting dots. Defaults to the theme's primary color.
   final Color? color;
+
+  /// The color of the static orbit track and dot trails. Defaults to
+  /// [color] at reduced opacity.
   final Color? secondaryColor;
+
+  /// An optional gradient applied to the orbiting dots, overriding [color]
+  /// as a flat fill.
   final Gradient? gradient;
+
+  /// The number of dots orbiting the track, each staggered evenly apart.
   final int dotCount;
+
+  /// The radius of each orbiting dot.
   final double dotSize;
+
+  /// How long a single dot takes to complete one full orbit.
   final Duration speed;
 
+  /// Whether to render a trail of fading sparkles behind each dot instead
+  /// of the default solid comet trail.
   final bool showSparkle;
 
+  /// The number of sparkles drawn per dot when [showSparkle] is `true`.
   final int sparkleCount;
 
+  /// The color of the sparkle trail. Defaults to [color].
   final Color? sparkleColor;
 
+  /// The easing curve applied to each dot's orbital motion.
   final Curve curve;
 
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates an [OrbitProgressIndicator].
   const OrbitProgressIndicator({
     super.key,
     this.size = 60.0,
@@ -30,6 +58,7 @@ class OrbitProgressIndicator extends StatefulWidget {
     this.showSparkle = false,
     this.sparkleCount = 12,
     this.sparkleColor,
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -44,8 +73,21 @@ class _OrbitProgressIndicatorState extends State<OrbitProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.speed)
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant OrbitProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override

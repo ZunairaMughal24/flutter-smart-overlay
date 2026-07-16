@@ -6,6 +6,7 @@ import 'widgets/section_header.dart';
 import 'widgets/action_card.dart';
 import 'widgets/indicator_demo_card.dart';
 import 'widgets/customization_host.dart';
+import 'widgets/animation_control_demo.dart';
 
 void main() {
   runApp(const SmartOverlayGuide());
@@ -194,6 +195,14 @@ class GuideScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              const SizedBox(height: 20),
+              const SectionHeader(
+                title: 'Animation Control',
+                subtitle: 'Stop and resume from outside, at any speed',
+              ),
+              const SizedBox(height: 12),
+              const AnimationControlDemo(),
 
               const SizedBox(height: 20),
               const SectionHeader(

@@ -1,21 +1,39 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A progress indicator depicting flower-petal shapes arranged in a ring,
+/// each fading in and out in sequence like petals unfurling.
 class ZenithProgressIndicator extends StatefulWidget {
+  /// The width and height of the indicator's bounding box.
   final double size;
 
+  /// The color of the petals. Defaults to the theme's primary color.
   final Color? color;
 
+  /// An optional gradient applied to the petals, overriding [color] as a
+  /// flat fill.
   final Gradient? gradient;
 
+  /// The number of petals arranged around the ring.
   final int leafCount;
 
+  /// Reserved for future stroke-based rendering; currently unused since
+  /// petals are filled rather than stroked.
   final double strokeWidth;
 
+  /// How long it takes for the fade sequence to travel once around all
+  /// petals.
   final Duration speed;
 
+  /// The easing curve applied to the fade sequence.
   final Curve curve;
 
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates a [ZenithProgressIndicator].
   const ZenithProgressIndicator({
     super.key,
     this.size = 50.0,
@@ -24,6 +42,7 @@ class ZenithProgressIndicator extends StatefulWidget {
     this.leafCount = 12,
     this.strokeWidth = 2.0,
     this.speed = const Duration(milliseconds: 1200),
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -39,8 +58,21 @@ class _ZenithProgressIndicatorState extends State<ZenithProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.speed)
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant ZenithProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override

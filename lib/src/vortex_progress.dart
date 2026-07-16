@@ -1,21 +1,38 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A progress indicator depicting arrow-tipped arcs chasing each other
+/// around a circular track, like a vortex being pulled inward.
 class VortexProgressIndicator extends StatefulWidget {
+  /// The width and height of the indicator's bounding box.
   final double size;
 
+  /// The color of the arcs and arrowheads. Defaults to the theme's
+  /// primary color.
   final Color? color;
 
+  /// An optional gradient applied to the arcs and arrowheads, overriding
+  /// [color] as a flat fill/stroke.
   final Gradient? gradient;
 
+  /// The number of arrow-tipped arcs arranged around the track.
   final int arrowCount;
 
+  /// The stroke width of each arc.
   final double strokeWidth;
 
+  /// How long it takes for the arcs to complete one full rotation.
   final Duration speed;
 
+  /// The easing curve applied to the rotation.
   final Curve curve;
 
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates a [VortexProgressIndicator].
   const VortexProgressIndicator({
     super.key,
     this.size = 50.0,
@@ -24,6 +41,7 @@ class VortexProgressIndicator extends StatefulWidget {
     this.arrowCount = 3,
     this.strokeWidth = 3.5,
     this.speed = const Duration(milliseconds: 1500),
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -39,8 +57,21 @@ class _VortexProgressIndicatorState extends State<VortexProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.speed)
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant VortexProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override

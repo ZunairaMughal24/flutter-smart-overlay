@@ -1,14 +1,35 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
+/// A progress indicator made of radial tick marks (like a clock face)
+/// whose opacity sweeps around the circle.
 class NexusProgressIndicator extends StatefulWidget {
+  /// The width and height of the indicator's bounding box.
   final double size;
+
+  /// The color of the tick marks. Defaults to the theme's primary color.
   final Color? color;
+
+  /// An optional gradient applied to the tick marks, overriding [color]
+  /// as a flat stroke.
   final Gradient? gradient;
+
+  /// The number of tick marks arranged around the circle.
   final int barCount;
+
+  /// The thickness of each tick mark.
   final double strokeWidth;
+
+  /// How long it takes for the opacity sweep to travel once around all
+  /// tick marks.
   final Duration speed;
 
+  /// Whether the animation is running. Set to `false` to freeze the
+  /// indicator at its current frame — for example, once your async
+  /// operation completes. Defaults to `true`.
+  final bool isAnimating;
+
+  /// Creates a [NexusProgressIndicator].
   const NexusProgressIndicator({
     super.key,
     this.size = 50.0,
@@ -17,6 +38,7 @@ class NexusProgressIndicator extends StatefulWidget {
     this.barCount = 12,
     this.strokeWidth = 3.5,
     this.speed = const Duration(milliseconds: 1000),
+    this.isAnimating = true,
     this.curve = Curves.linear,
   });
 
@@ -33,8 +55,21 @@ class _NexusProgressIndicatorState extends State<NexusProgressIndicator>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.speed)
-      ..repeat();
+    _controller = AnimationController(vsync: this, duration: widget.speed);
+    if (widget.isAnimating) {
+      _controller.repeat();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant NexusProgressIndicator oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.speed != oldWidget.speed) {
+      _controller.duration = widget.speed;
+    }
+    if (widget.isAnimating != oldWidget.isAnimating) {
+      widget.isAnimating ? _controller.repeat() : _controller.stop();
+    }
   }
 
   @override
