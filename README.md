@@ -1,7 +1,10 @@
 # smart_overlay 🌊
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ZunairaMughal24/flutter-smart-overlay/main/assets/Indicator%20Demo%20Gif.gif" width="370px" alt="Smart Overlay Premium Demo">
+  <a href="https://pub.dev/packages/smart_overlay"><img src="https://img.shields.io/pub/v/smart_overlay.svg" alt="Pub Version"></a>
+  <a href="https://pub.dev/packages/smart_overlay/score"><img src="https://img.shields.io/pub/points/smart_overlay" alt="Pub Points"></a>
+  <a href="https://pub.dev/packages/smart_overlay/score"><img src="https://img.shields.io/pub/likes/smart_overlay" alt="Pub Likes"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
 </p>
 
 A **premium, lightweight loading overlay manager** for Flutter. Featuring the unique **FluxWave (Wavy) Progress Indicator** with full gradient support.
@@ -10,15 +13,28 @@ A **premium, lightweight loading overlay manager** for Flutter. Featuring the un
 
 ## ✨ Features
 
-- **Multiple Styles**: Choose between the unique `FluxWaveProgressIndicator` or the professional `LuminaProgressIndicator`.
-- **Custom Indicators**: Inject any custom widget as your progress indicator.
+- **10 Unique Indicators**: `FluxWave`, `Lumina`, `Hydra`, `Aura`, `Nova`, `Orbit`, `Eclipse`, `Nexus`, `Zenith`, and `Vortex` — no other loading package has this much visual variety in one place.
+- **Full Animation Control**: Every indicator supports `isAnimating` (stop/resume from any condition — a switch, a timer, or a real async result) and `speed` (how fast it loops), independent of each other.
+- **Determinate or Indeterminate**: `FluxWave` and `Hydra` accept a real `value: 0.0–1.0` for actual upload/download progress, not just endless spinning.
+- **Two Overlay Styles**: `SmartOverlay.show()` for a full-screen block, `SmartOverlay.showCustom()` for a lightweight, non-blocking toast card.
+- **Custom Indicators**: Inject any custom widget as your progress indicator or toast icon.
 - **Built-in Accessibility**: All loaders come with `Semantics` support out of the box.
 - **Gradients Galore**: Apply beautiful gradients to your loaders for a high-end feel.
-- **Micro-Animations**: Smooth scale and fade transitions for a premium UX.
 - **Glassmorphism**: Optional background blur (`useBlur`) for the full-screen loader.
+- **Respects Your App's Theme**: No forced fonts — overlay text uses your app's existing `TextTheme` automatically.
 - **Simple API**: Easy-to-use `SmartOverlay` static methods or `BuildContext` extensions.
-- **Elite Customization**: Control `dotSize`, `dotCount`, and spread `radius` for indicators.
 - **Hybrid Messages**: Use simple `String` messages or complex `Widget` message builders.
+
+---
+
+## 🎬 Gallery
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ZunairaMughal24/flutter-smart-overlay/main/assets/gif1.gif" width="200px" alt="Full-screen loading overlay and compact toast notification">
+  <img src="https://raw.githubusercontent.com/ZunairaMughal24/flutter-smart-overlay/main/assets/gif2.gif" width="200px" alt="All 10 indicator styles">
+  <img src="https://raw.githubusercontent.com/ZunairaMughal24/flutter-smart-overlay/main/assets/gif3.gif" width="200px" alt="Live animation control - start, stop, and adjust speed">
+  <img src="https://raw.githubusercontent.com/ZunairaMughal24/flutter-smart-overlay/main/assets/gif4.gif" width="200px" alt="Customization playground for every indicator">
+</p>
 
 ---
 
@@ -29,7 +45,7 @@ Add `smart_overlay` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  smart_overlay: ^0.0.1
+  smart_overlay: ^0.1.0
 ```
 
 ### 2. Basic Usage
@@ -207,6 +223,37 @@ Each indicator also has its own visual-specific parameters (`waveCount`, `dotCou
 
 ---
 
+## 🛠️ Configuration Options
+
+**`SmartOverlay.show()`** — full-screen loader:
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `backgroundColor` | Background scrim color behind the overlay | `Colors.black.withAlpha(200)` |
+| `textColor` | Color of the message text | `Colors.white` |
+| `useBlur` | Enable background glassmorphism blur | `false` |
+| `gradient` | Apply a gradient to the progress indicator | `null` |
+| `indicator` | Inject a custom indicator widget | `FluxWaveProgressIndicator` |
+| `message` | Optional text to display below the loader | `null` |
+| `messageWidget` | Inject a custom widget as the message | `null` |
+| `autoDismissDuration` | If set, the overlay hides automatically | `null` (sticky) |
+
+**`SmartOverlay.showCustom()`** — compact card toast (accepts `message`, `messageWidget`, `indicator`, `backgroundColor`, `gradient`, and `autoDismissDuration` above, plus):
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `boxColor` | Background color of the card itself | `Colors.white` |
+| `iconColor` | Color of the default indicator's icon/stroke | `Colors.blue` |
+| `customWidget` | Replaces the leading icon/indicator entirely — e.g. a success checkmark | `null` |
+| `textColor` | Color of the message text | `Colors.black87` |
+| `backgroundColor` | Background scrim behind the card | `Colors.white.withAlpha(200)` |
+
+> **Opacity isn't a separate parameter** — `backgroundColor`, `boxColor`, `textColor`, and `iconColor` are all plain `Color`, and opacity is just the alpha channel of that color. Use `Colors.black.withValues(alpha: 0.6)` for a darker, more solid scrim, `Colors.indigo.withValues(alpha: 0.2)` for a light tint, or `Colors.transparent` for none at all.
+
+Both accept a full `OverlayOptions` object via the `options:` parameter as an escape hatch for anything not listed above.
+
+---
+
 ## 📖 Complete Parameter Reference
 
 Every parameter on every indicator, in one place — each block below uses **all** of that indicator's own fields.
@@ -358,37 +405,6 @@ VortexProgressIndicator(
   curve: Curves.linear,
 )
 ```
-
----
-
-## 🛠️ Configuration Options
-
-**`SmartOverlay.show()`** — full-screen loader:
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| `backgroundColor` | Background scrim color behind the overlay | `Colors.black.withAlpha(200)` |
-| `textColor` | Color of the message text | `Colors.white` |
-| `useBlur` | Enable background glassmorphism blur | `false` |
-| `gradient` | Apply a gradient to the progress indicator | `null` |
-| `indicator` | Inject a custom indicator widget | `FluxWaveProgressIndicator` |
-| `message` | Optional text to display below the loader | `null` |
-| `messageWidget` | Inject a custom widget as the message | `null` |
-| `autoDismissDuration` | If set, the overlay hides automatically | `null` (sticky) |
-
-**`SmartOverlay.showCustom()`** — compact card toast (accepts `message`, `messageWidget`, `indicator`, `backgroundColor`, `gradient`, and `autoDismissDuration` above, plus):
-
-| Option | Description | Default |
-|--------|-------------|---------|
-| `boxColor` | Background color of the card itself | `Colors.white` |
-| `iconColor` | Color of the default indicator's icon/stroke | `Colors.blue` |
-| `customWidget` | Replaces the leading icon/indicator entirely — e.g. a success checkmark | `null` |
-| `textColor` | Color of the message text | `Colors.black87` |
-| `backgroundColor` | Background scrim behind the card | `Colors.white.withAlpha(200)` |
-
-> **Opacity isn't a separate parameter** — `backgroundColor`, `boxColor`, `textColor`, and `iconColor` are all plain `Color`, and opacity is just the alpha channel of that color. Use `Colors.black.withValues(alpha: 0.6)` for a darker, more solid scrim, `Colors.indigo.withValues(alpha: 0.2)` for a light tint, or `Colors.transparent` for none at all.
-
-Both accept a full `OverlayOptions` object via the `options:` parameter as an escape hatch for anything not listed above.
 
 ---
 

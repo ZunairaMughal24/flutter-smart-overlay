@@ -1,6 +1,6 @@
 name: smart_overlay
 description: "A premium, lightweight smart loading overlay manager for Flutter. Features glassmorphism, gradients, and unique wavy (scalloped) progress indicators."
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/ZunairaMughal24/flutter-smart-overlay
 repository: https://github.com/ZunairaMughal24/flutter-smart-overlay
 
@@ -12,8 +12,14 @@ topics:
   - progress-indicator
 
 screenshots:
-  - description: 'The FluxWave progress indicator with gradient, glassmorphism blur, and message styling.'
-    path: 'assets/Indicator Demo Gif.gif'
+  - description: 'Full-screen loading overlay and compact toast notification in action.'
+    path: 'assets/gif1.gif'
+  - description: 'All 10 indicator styles — FluxWave, Lumina, Hydra, Aura, Nova, Orbit, Eclipse, Nexus, Zenith, and Vortex.'
+    path: 'assets/gif2.gif'
+  - description: 'Live animation control — start, stop, and adjust speed on demand.'
+    path: 'assets/gif3.gif'
+  - description: 'Customization playground — colors, gradients, and shape parameters for every indicator.'
+    path: 'assets/gif4.gif'
 
 environment:
   sdk: ^3.8.1

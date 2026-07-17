@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Unreleased
+## 0.1.0
 
 * **New: `SmartOverlay.showCustom()`**: The compact, card-style toast (`SmartOverlayType.custom`) was previously unreachable through the public API — `SmartOverlay.show()` always hardcoded `type: SmartOverlayType.loader`, leaving `boxColor`, `iconColor`, and `customWidget` on `OverlayOptions` dead. `showCustom()` (and the matching `context.showCustom()` extension) now exposes this style properly.
 * **Animation Control**: Added `isAnimating` to every indicator — set it to `false` to freeze the indicator at its current frame from outside (e.g. once an async task completes), without unmounting the widget.
