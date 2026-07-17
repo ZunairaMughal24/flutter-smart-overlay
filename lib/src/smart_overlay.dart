@@ -41,6 +41,44 @@ class SmartOverlay {
     );
   }
 
+  /// Shows a compact, card-style toast with an icon (or indicator) beside
+  /// a message — a lighter-weight alternative to [show]'s full-screen
+  /// loader. Use [customWidget] to replace the leading icon/indicator
+  /// entirely, e.g. for a success checkmark or error icon.
+  static void showCustom({
+    required BuildContext context,
+    String? message,
+    OverlayOptions? options,
+    Widget? messageWidget,
+    Widget? customWidget,
+    Widget? indicator,
+    Color? backgroundColor,
+    Color? boxColor,
+    Color? textColor,
+    Color? iconColor,
+    Gradient? gradient,
+    Duration? autoDismissDuration,
+  }) {
+    SmartOverlayManager().show(
+      context: context,
+      type: SmartOverlayType.custom,
+      options:
+          options ??
+          OverlayOptions(
+            message: message,
+            messageWidget: messageWidget,
+            customWidget: customWidget,
+            indicator: indicator,
+            backgroundColor: backgroundColor,
+            boxColor: boxColor,
+            textColor: textColor,
+            iconColor: iconColor,
+            gradient: gradient,
+            autoDismissDuration: autoDismissDuration,
+          ),
+    );
+  }
+
   /// Hides the currently active overlay.
   static void hide() {
     SmartOverlayManager().hide();

@@ -61,7 +61,7 @@ class _AnimationControlDemoState extends State<AnimationControlDemo> {
                 height: 60,
                 child: Center(
                   child: FluxWaveProgressIndicator(
-                    waveCount: 8,
+                    waveCount: 12,
                     strokeWidth: 3,
                     size: 50,
                     isAnimating: _isAnimating,

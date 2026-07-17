@@ -54,7 +54,7 @@ SmartOverlay.show(
   context: context,
   message: "Syncing your data...",
   useBlur: true,
-  backgroundColor: Colors.indigo.withOpacity(0.4),
+  backgroundColor: Colors.indigo.withValues(alpha: 0.4),
   gradient: LinearGradient(
     colors: [Colors.purple, Colors.blueAccent],
   ),
@@ -165,6 +165,23 @@ FluxWaveProgressIndicator(
 )
 ```
 
+### 8. Compact Toast Style
+For a lighter-weight, non-blocking confirmation (e.g. "Saved!"), use `showCustom` instead of `show`. It renders a small card with an icon (or your own `customWidget`) beside a message, rather than a full-screen loader:
+
+```dart
+SmartOverlay.showCustom(
+  context: context,
+  message: 'Saved!',
+  customWidget: const Icon(Icons.check_circle, color: Colors.green),
+  boxColor: Colors.white,
+  textColor: Colors.black87,
+  autoDismissDuration: const Duration(seconds: 2),
+);
+
+// Or via the context extension:
+context.showCustom(message: 'Saved!', customWidget: const Icon(Icons.check_circle));
+```
+
 ---
 
 ## 🎛️ Indicator Parameters
@@ -186,15 +203,171 @@ Every indicator (`FluxWave`, `Lumina`, `Hydra`, `Aura`, `Nova`, `Orbit`, `Eclips
 |--------|-------------|
 | `value` | `null` (default) → indeterminate, loops forever. `0.0`–`1.0` → **determinate**: draws a fixed arc/fill for that exact fraction instead of looping. This does not animate on its own — update it yourself as your real progress changes (e.g. from an upload's byte-progress callback). `speed` still applies to the ring's background rotation even in determinate mode. |
 
-Each indicator also has its own visual-specific parameters (`waveCount`, `dotCount`, `rippleCount`, etc.) — see each class's dartdoc for details. A live, runnable example of all three `isAnimating` patterns above is in [example/lib/widgets/animation_control_demo.dart](example/lib/widgets/animation_control_demo.dart).
+Each indicator also has its own visual-specific parameters (`waveCount`, `dotCount`, `rippleCount`, etc.) — see each class's dartdoc for details, or the full reference below. A live, runnable example of all three `isAnimating` patterns above is in [example/lib/widgets/animation_control_demo.dart](example/lib/widgets/animation_control_demo.dart).
+
+---
+
+## 📖 Complete Parameter Reference
+
+Every parameter on every indicator, in one place — each block below uses **all** of that indicator's own fields.
+
+**FluxWave** — synchronized scalloped wave path. Supports `value` for real progress.
+```dart
+FluxWaveProgressIndicator(
+  size: 64,
+  strokeWidth: 3,
+  waveCount: 10,
+  color: Colors.cyan,
+  backgroundColor: Colors.cyan.withValues(alpha: 0.15),
+  gradient: const LinearGradient(colors: [Colors.blue, Colors.cyan]),
+  speed: const Duration(seconds: 2),
+  isAnimating: true,
+  curve: Curves.easeInOut,
+  value: null, // or 0.0–1.0 for determinate progress
+)
+```
+
+**Lumina** — dots fading and scaling in sequence around a ring.
+```dart
+LuminaProgressIndicator(
+  size: 60,
+  dotCount: 12,
+  dotSize: 5,
+  radius: 24,
+  color: Colors.deepPurple,
+  gradient: const SweepGradient(colors: [Colors.purple, Colors.pink]),
+  speed: const Duration(milliseconds: 1000),
+  isAnimating: true,
+  curve: Curves.linear,
+)
+```
+
+**Hydra** — a liquid fill with an animated wavy surface. Supports `value` for real progress.
+```dart
+HydraProgressIndicator(
+  size: 70,
+  value: 0.6, // or null for indeterminate
+  waveAmplitude: 5,
+  waveFrequency: 2,
+  color: Colors.blue,
+  backgroundColor: Colors.blue.withValues(alpha: 0.1),
+  gradient: const LinearGradient(colors: [Colors.lightBlue, Colors.teal]),
+  speed: const Duration(seconds: 2),
+  isAnimating: true,
+  curve: Curves.linear,
+)
+```
+
+**Aura** — pulsing concentric ripples from a center dot.
+```dart
+AuraProgressIndicator(
+  size: 65,
+  rippleCount: 4,
+  showCenter: true,
+  color: Colors.teal,
+  gradient: const LinearGradient(colors: [Colors.teal, Colors.cyan]),
+  speed: const Duration(milliseconds: 2400),
+  isAnimating: true,
+  curve: Curves.easeOut,
+)
+```
+
+**Nova** — a pulsing center with expanding rings that briefly bloom into petals.
+```dart
+NovaProgressIndicator(
+  size: 65,
+  ringCount: 3,
+  strokeWidth: 2,
+  petalCount: 8, // 0 disables petals
+  color: Colors.deepOrange,
+  gradient: const LinearGradient(colors: [Colors.orange, Colors.red]),
+  speed: const Duration(milliseconds: 2400),
+  isAnimating: true,
+  curve: Curves.linear,
+)
+```
+
+**Orbit** — dots orbiting a track with a comet trail, or optional sparkles.
+```dart
+OrbitProgressIndicator(
+  size: 65,
+  dotCount: 3,
+  dotSize: 5,
+  showSparkle: true,
+  sparkleCount: 12,
+  sparkleColor: Colors.amber,
+  color: Colors.indigo,
+  secondaryColor: Colors.indigo.withValues(alpha: 0.3),
+  gradient: const LinearGradient(colors: [Colors.indigo, Colors.blue]),
+  speed: const Duration(milliseconds: 1800),
+  isAnimating: true,
+  curve: Curves.fastOutSlowIn,
+)
+```
+
+**Eclipse** — two circles growing and shrinking out of phase.
+```dart
+EclipseProgressIndicator(
+  size: 65,
+  color: Colors.pink,
+  secondaryColor: Colors.pink.withValues(alpha: 0.4),
+  gradient: const LinearGradient(colors: [Colors.purple, Colors.pink]),
+  speed: const Duration(seconds: 2),
+  isAnimating: true,
+  curve: Curves.easeInOut,
+)
+```
+
+**Nexus** — radial tick marks whose opacity sweeps around, like a clock face.
+```dart
+NexusProgressIndicator(
+  size: 50,
+  barCount: 12,
+  strokeWidth: 3.5,
+  color: Colors.green,
+  gradient: const LinearGradient(colors: [Colors.green, Colors.teal]),
+  speed: const Duration(seconds: 1),
+  isAnimating: true,
+  curve: Curves.linear,
+)
+```
+
+**Zenith** — flower-petal shapes fading in and out in sequence.
+```dart
+ZenithProgressIndicator(
+  size: 50,
+  leafCount: 12,
+  color: Colors.deepPurple,
+  gradient: const LinearGradient(colors: [Colors.purple, Colors.deepPurple]),
+  speed: const Duration(milliseconds: 1200),
+  isAnimating: true,
+  curve: Curves.linear,
+)
+```
+
+**Vortex** — arrow-tipped arcs chasing each other around a track.
+```dart
+VortexProgressIndicator(
+  size: 50,
+  arrowCount: 3,
+  strokeWidth: 3.5,
+  color: Colors.blue,
+  gradient: const LinearGradient(colors: [Colors.blue, Colors.indigo]),
+  speed: const Duration(milliseconds: 1500),
+  isAnimating: true,
+  curve: Curves.linear,
+)
+```
 
 ---
 
 ## 🛠️ Configuration Options
 
+**`SmartOverlay.show()`** — full-screen loader:
+
 | Option | Description | Default |
 |--------|-------------|---------|
-| `backgroundColor` | Background color of the overlay | `Colors.black54` (dark) |
+| `backgroundColor` | Background scrim color behind the overlay | `Colors.black.withAlpha(200)` |
 | `textColor` | Color of the message text | `Colors.white` |
 | `useBlur` | Enable background glassmorphism blur | `false` |
 | `gradient` | Apply a gradient to the progress indicator | `null` |
@@ -202,6 +375,20 @@ Each indicator also has its own visual-specific parameters (`waveCount`, `dotCou
 | `message` | Optional text to display below the loader | `null` |
 | `messageWidget` | Inject a custom widget as the message | `null` |
 | `autoDismissDuration` | If set, the overlay hides automatically | `null` (sticky) |
+
+**`SmartOverlay.showCustom()`** — compact card toast (accepts `message`, `messageWidget`, `indicator`, `backgroundColor`, `gradient`, and `autoDismissDuration` above, plus):
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `boxColor` | Background color of the card itself | `Colors.white` |
+| `iconColor` | Color of the default indicator's icon/stroke | `Colors.blue` |
+| `customWidget` | Replaces the leading icon/indicator entirely — e.g. a success checkmark | `null` |
+| `textColor` | Color of the message text | `Colors.black87` |
+| `backgroundColor` | Background scrim behind the card | `Colors.white.withAlpha(200)` |
+
+> **Opacity isn't a separate parameter** — `backgroundColor`, `boxColor`, `textColor`, and `iconColor` are all plain `Color`, and opacity is just the alpha channel of that color. Use `Colors.black.withValues(alpha: 0.6)` for a darker, more solid scrim, `Colors.indigo.withValues(alpha: 0.2)` for a light tint, or `Colors.transparent` for none at all.
+
+Both accept a full `OverlayOptions` object via the `options:` parameter as an escape hatch for anything not listed above.
 
 ---
 

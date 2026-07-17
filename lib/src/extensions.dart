@@ -30,6 +30,36 @@ extension SmartOverlayExtension on BuildContext {
     );
   }
 
+  /// Shows a compact, card-style toast. See [SmartOverlay.showCustom].
+  void showCustom({
+    String? message,
+    OverlayOptions? options,
+    Widget? messageWidget,
+    Widget? customWidget,
+    Widget? indicator,
+    Color? backgroundColor,
+    Color? boxColor,
+    Color? textColor,
+    Color? iconColor,
+    Gradient? gradient,
+    Duration? autoDismissDuration,
+  }) {
+    SmartOverlay.showCustom(
+      context: this,
+      message: message,
+      options: options,
+      messageWidget: messageWidget,
+      customWidget: customWidget,
+      indicator: indicator,
+      backgroundColor: backgroundColor,
+      boxColor: boxColor,
+      textColor: textColor,
+      iconColor: iconColor,
+      gradient: gradient,
+      autoDismissDuration: autoDismissDuration,
+    );
+  }
+
   void hideOverlay() {
     SmartOverlay.hide();
   }

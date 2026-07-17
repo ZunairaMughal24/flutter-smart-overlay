@@ -240,6 +240,39 @@ class GuideScreen extends StatelessWidget {
   }
 
   Widget _buildOverlayGrid(BuildContext context) {
+    return Column(
+      children: [
+        _buildOverlayGridRow(context),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(
+              child: ActionCard(
+                label: 'Custom Toast',
+                description: 'showCustom',
+                icon: Icons.check_circle_outline,
+                color: const Color(0xFF2DD4BF),
+                onTap: () {
+                  SmartOverlay.showCustom(
+                    context: context,
+                    message: 'Saved successfully!',
+                    customWidget: const Icon(
+                      Icons.check_circle,
+                      color: Color(0xFF2DD4BF),
+                    ),
+                    backgroundColor: Colors.black.withValues(alpha: 0.6),
+                    autoDismissDuration: const Duration(seconds: 2),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOverlayGridRow(BuildContext context) {
     return Row(
       children: [
         Expanded(
