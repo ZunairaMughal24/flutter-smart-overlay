@@ -53,6 +53,7 @@ class HydraProgressIndicator extends StatefulWidget {
     this.curve = Curves.linear,
   });
 
+  /// The easing curve applied to the wave animation.
   final Curve curve;
 
   @override

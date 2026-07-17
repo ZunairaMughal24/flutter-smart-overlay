@@ -47,6 +47,7 @@ class NovaProgressIndicator extends StatefulWidget {
     this.curve = Curves.linear,
   });
 
+  /// The easing curve applied to the ring expansion.
   final Curve curve;
 
   @override

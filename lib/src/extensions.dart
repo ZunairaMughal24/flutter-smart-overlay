@@ -60,6 +60,7 @@ extension SmartOverlayExtension on BuildContext {
     );
   }
 
+  /// Hides the currently active overlay. See [SmartOverlay.hide].
   void hideOverlay() {
     SmartOverlay.hide();
   }

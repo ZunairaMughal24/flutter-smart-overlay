@@ -1,6 +1,6 @@
 name: smart_overlay
 description: "A premium, lightweight smart loading overlay manager for Flutter. Features glassmorphism, gradients, and unique wavy (scalloped) progress indicators."
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/ZunairaMughal24/flutter-smart-overlay
 repository: https://github.com/ZunairaMughal24/flutter-smart-overlay
 

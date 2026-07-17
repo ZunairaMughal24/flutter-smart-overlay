@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.1
+
+* **Documentation**: Fixed 12 remaining undocumented public API members (`curve` on 7 indicators, `strokeWidth` and the constructor on `FluxWaveProgressIndicator`, `hideOverlay()`, `SmartOverlayManager`'s factory constructor and `hide()`) that were missed in the 0.1.0 doc pass. Enabled the `public_member_api_docs` lint permanently to catch any future regressions in CI/`flutter analyze` instead of relying on manual review.
+
 ## 0.1.0
 
 * **New: `SmartOverlay.showCustom()`**: The compact, card-style toast (`SmartOverlayType.custom`) was previously unreachable through the public API — `SmartOverlay.show()` always hardcoded `type: SmartOverlayType.loader`, leaving `boxColor`, `iconColor`, and `customWidget` on `OverlayOptions` dead. `showCustom()` (and the matching `context.showCustom()` extension) now exposes this style properly.

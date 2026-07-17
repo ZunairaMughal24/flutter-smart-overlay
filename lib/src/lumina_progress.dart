@@ -47,6 +47,7 @@ class LuminaProgressIndicator extends StatefulWidget {
     this.curve = Curves.linear,
   });
 
+  /// The easing curve applied to the dot fade/scale animation.
   final Curve curve;
 
   @override

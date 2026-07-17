@@ -7,6 +7,7 @@ class FluxWaveProgressIndicator extends StatefulWidget {
   /// sweeps indeterminately instead of tracking a fixed value.
   final double? value;
 
+  /// The thickness of the wave stroke.
   final double strokeWidth;
 
   /// The color of the wave stroke. Defaults to the theme's primary color.
@@ -34,6 +35,7 @@ class FluxWaveProgressIndicator extends StatefulWidget {
   /// operation completes. Defaults to `true`.
   final bool isAnimating;
 
+  /// Creates a [FluxWaveProgressIndicator].
   const FluxWaveProgressIndicator({
     super.key,
     this.value,
@@ -48,6 +50,7 @@ class FluxWaveProgressIndicator extends StatefulWidget {
     this.curve = Curves.linear,
   });
 
+  /// The easing curve applied to the wave rotation.
   final Curve curve;
 
   @override

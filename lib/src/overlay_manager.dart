@@ -5,6 +5,8 @@ import 'overlay_widget.dart';
 /// A singleton manager that handles [OverlayEntry] insertion and removal.
 class SmartOverlayManager {
   static final SmartOverlayManager _instance = SmartOverlayManager._internal();
+
+  /// Returns the singleton [SmartOverlayManager] instance.
   factory SmartOverlayManager() => _instance;
   SmartOverlayManager._internal();
 
@@ -32,6 +34,7 @@ class SmartOverlayManager {
     }
   }
 
+  /// Hides and disposes the currently active overlay, if any.
   void hide() {
     _timer?.cancel();
     _timer = null;

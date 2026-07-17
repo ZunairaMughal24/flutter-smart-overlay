@@ -42,6 +42,7 @@ class NexusProgressIndicator extends StatefulWidget {
     this.curve = Curves.linear,
   });
 
+  /// The easing curve applied to the opacity sweep.
   final Curve curve;
 
   @override

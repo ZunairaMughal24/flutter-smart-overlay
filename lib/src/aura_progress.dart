@@ -47,6 +47,7 @@ class AuraProgressIndicator extends StatefulWidget {
     this.curve = Curves.linear,
   });
 
+  /// The easing curve applied to the ripple animation.
   final Curve curve;
 
   @override
