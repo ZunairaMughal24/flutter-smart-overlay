@@ -2,6 +2,8 @@
 
 <p align="center">
   <a href="https://pub.dev/packages/smart_overlay"><img src="https://img.shields.io/pub/v/smart_overlay.svg" alt="Pub Version"></a>
+  <a href="https://pub.dev/packages/smart_overlay/score"><img src="https://img.shields.io/pub/points/smart_overlay" alt="Pub Points"></a>
+  <a href="https://pub.dev/packages/smart_overlay/score"><img src="https://img.shields.io/pub/likes/smart_overlay" alt="Pub Likes"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
 </p>
 
